@@ -1230,11 +1230,14 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   /* ---------- números (kanji na vertical) ----------
      No Figma o bloco tem 483px; como a seção fica fixa enquanto os números trocam,
      aqui ela ocupa a tela toda e o bloco de 483px fica centralizado (sem faixa branca embaixo). */
+  /* lvh = altura da tela com a barra do navegador escondida: quando a barra some ao rolar,
+     a seção fixa continua cobrindo a tela toda (com svh sobrava uma faixa branca embaixo) */
+  .home .stats { height: 100vh; height: 100lvh; }
   .home .stats > .stage { top: 50%; height: 483.167px; translate: 0 -50%; }
   .home .stat-bg {   /* foto com 869.7px de largura, no mesmo enquadramento do Figma (o inset de -8% é do parallax) */
     background-size: calc(869.7px * var(--mz)) auto;
     background-position: center calc(58vh - 512.28px * var(--mz));
-    background-position: center calc(58svh - 512.28px * var(--mz));
+    background-position: center calc(58lvh - 512.28px * var(--mz));
   }
   .home .stat-kanji { display: none; }
   .home .stat-kanji-m { display: block; position: absolute; inset: 0; mix-blend-mode: difference; pointer-events: none; }
@@ -1251,7 +1254,7 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   /* 4 faixas que ocupam a tela toda (de cima pra baixo: 1862, PLS04305, DSC06605, 1824).
      --ph = altura da tela em px do frame de 390 (o bloco tem zoom) */
   .home .story-photos {
-    --ph: calc(100svh / var(--mz));
+    --ph: calc(100lvh / var(--mz));
     position: relative;
     inset: auto;
     width: 390px;
@@ -1274,7 +1277,7 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   .home .story-title {
     display: flex;
     inset: 0 0 auto;
-    height: 100svh;
+    height: 100lvh;
   }
   .home .story-title .zoom { zoom: var(--mz); }
   .home .kath-banner-title {
@@ -1290,7 +1293,7 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
     position: absolute;
     z-index: 3;
     left: -43.07px;
-    top: calc(100svh / var(--mz) - 821.81px);
+    top: calc(100lvh / var(--mz) - 821.81px);
     width: 523.794px;
     height: 1434.35px;
     max-width: none;
