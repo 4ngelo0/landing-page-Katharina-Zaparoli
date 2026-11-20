@@ -1224,8 +1224,11 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   .home .hero-text { margin-top: 20.221px; width: 290.488px; font-size: 10.784px; letter-spacing: -0.3235px; text-align: center; }
   .home .hero-text .jl, .home .hero-text .jl.jl-last { text-align: center; text-align-last: center; }
   .home .hero-ctas { margin-top: 19.547px; gap: 11.458px; justify-content: center; }
-  .home .hero-ctas .btn { padding: 13.48px 26.961px; border-radius: 3.37px; font-size: 9.436px; letter-spacing: -0.2831px; }
-  .home .hero-ctas .btn-outline { border-width: 0.674px; }
+  /* CTAs do hero e da última seção no mesmo tamanho do botão do "Quem é a Kath" */
+  .home .hero-ctas .btn, .home .provoke-ctas .btn { padding: 18.943px 37.886px; border-radius: 4.736px; font-size: 13.26px; letter-spacing: -0.3978px; }
+  .home .hero-ctas .btn-outline, .home .provoke-ctas .btn-outline { border-width: 0.95px; }
+  .home .hero-ctas, .home .provoke-ctas { align-items: center; }
+  .home .provoke-ctas .btn { padding-left: 24px; padding-right: 24px; }   /* textos em maiúsculas: menos respiro lateral pra caberem lado a lado */
 
   /* ---------- números (kanji na vertical) ----------
      No Figma o bloco tem 483px; como a seção fica fixa enquanto os números trocam,
@@ -1487,8 +1490,6 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   .home .provoke-title { width: 337.233px; font-size: 32.183px; line-height: 1.025; letter-spacing: -0.9655px; }
   .home .provoke-lead { width: 313.083px; font-size: 11.494px; letter-spacing: -0.3448px; }
   .home .provoke-ctas { gap: 9.77px; justify-content: center; }
-  .home .provoke-ctas .btn { padding: 11.494px 22.988px; border-radius: 2.873px; font-size: 8.046px; letter-spacing: -0.2414px; }
-  .home .provoke-ctas .btn-outline { border-width: 0.575px; }
 
   /* ---------- footer ---------- */
   .home .footer { height: calc(722.79px * var(--mz)); border-radius: calc(30px * var(--mz)) calc(30px * var(--mz)) 0 0; }
