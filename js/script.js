@@ -32,20 +32,11 @@
       el.style.fontSize = '';
       return 100 * W / (w + 3);           // +3 = espaçamento negativo (-0.03em) da última letra
     };
-    var f1, f2, stripH, s, b;
-    if (mob) {
-      // frame mobile do Figma (390px): palavras um pouco maiores que a tela, faixa bem mais alta
-      var k = W / 390;
-      f1 = 83.646 * k; f2 = 92.916 * k;
-      stripH = 213.071 * k;
-      s = 61.14 * k;                      // faixa cobre a parte de baixo da 1ª palavra
-      b = 239.48 * k;                     // e a parte de cima da 2ª
-    } else {
-      f1 = size($('.zap-top')); f2 = size($('.zap-bottom'));
-      stripH = W * 379.419 / 1440;        // proporção da faixa no Figma
-      s = 0.412 * f1;                     // faixa cobre a parte de baixo da 1ª palavra (como no Figma)
-      b = s + stripH - 0.597 * f2;        // e a parte de cima da 2ª
-    }
+    var f1 = size($('.zap-top')), f2 = size($('.zap-bottom'));
+    // proporções do Figma (desktop: frame 1440 · celular: frame 390, faixa bem mais alta)
+    var stripH = mob ? W * 213.071 / 390 : W * 379.419 / 1440;
+    var s = (mob ? 0.731 : 0.412) * f1;                   // faixa cobre a parte de baixo da 1ª palavra
+    var b = s + stripH - (mob ? 0.3738 : 0.597) * f2;     // e a parte de cima da 2ª
     sec.style.setProperty('--zap-f1', f1 + 'px');
     sec.style.setProperty('--zap-f2', f2 + 'px');
     sec.style.setProperty('--zap-s', s + 'px');
@@ -79,6 +70,19 @@
       $$('.stats, .story').forEach(function (el) { io.observe(el); });
     }
   })();
+
+  /* ---------- cards inteiros clicáveis ----------
+     Tocar em qualquer parte do card abre o link principal dele ([data-card-link]).
+     Usa o próprio <a> (click), então a cortina de transição entre páginas continua funcionando. */
+  $$('.pcard').forEach(function (card) {
+    var link = $('[data-card-link]', card);
+    if (!link) return;
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('a, button')) return;                 // clicou num botão/link do card: segue normal
+      if (window.getSelection && String(window.getSelection())) return;   // estava selecionando texto
+      link.click();
+    });
+  });
 
   if (!window.gsap || !window.ScrollTrigger || !window.SplitText) {
     root.classList.remove('js');
@@ -168,9 +172,10 @@
      #quem-e-a-kath tem tratamento próprio (vai direto ao fim da cena fixada). */
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]');
-    if (!a) return;
+    if (!a || e.defaultPrevented) return;
     var id = a.getAttribute('href');
-    if (id === '#' || id === '#quem-e-a-kath' || id === '#topo') return;
+    if (id === '#' || id === '#topo') return;
+    if (id === '#quem-e-a-kath' && !aboutEnd) return;
     var y = hashY(id);
     if (y == null) return;
     e.preventDefault();
@@ -490,30 +495,78 @@
   /* celular (frame mobile do Figma): 4 faixas de foto com o título por cima,
      traçado vermelho descendo até o "Quem é a Kath?", pilha de fotos e texto */
   function storyMobile() {
-    if (reduce) return;
-    // faixas entram alternando os lados, a foto assenta de um leve zoom
-    $$('.sp').forEach(function (p, i) {
-      gsap.from(p, { xPercent: i % 2 ? 100 : -100, duration: 1.1, ease: 'power3.out',
-        scrollTrigger: { trigger: p, start: 'top 92%' } });
-      gsap.from($('img', p), { scale: 1.25, duration: 1.6, ease: 'power3.out',
-        scrollTrigger: { trigger: p, start: 'top 92%' } });
-    });
+    // "Quem sou eu" / "Saiba Mais" levam direto ao texto (depois da cena fixa)
+    aboutEnd = function () { return $('.about-title').getBoundingClientRect().top + window.scrollY - 100; };
+    if (reduce) return function () { aboutEnd = null; };
+
+    var pin = $('.story-pin');
+    var photos = $$('.sp').reverse();                 // ordem na tela, de cima pra baixo (1862, PLS, DSC, 1824)
+    var imgs = photos.map(function (p) { return $('img', p); });
+    var dims = $$('.sp-dim');
+    var path = $('.kath-swoosh-m path');
+    var len = path.getTotalLength();
+
+    // até onde o traçado vai enquanto a cena está fixa: o pé das faixas
+    var f = 0.6;
+    function measure() {
+      var sw = $('.kath-swoosh-m'), bottom = $('.story-photos').getBoundingClientRect().bottom;
+      var k = sw.getBoundingClientRect().height / 1434.35, top = sw.getBoundingClientRect().top;
+      for (var l = 0; l <= len; l += len / 400) {
+        if (top + path.getPointAtLength(l).y * k > bottom - 6) { f = l / len; return; }
+      }
+    }
+    measure();
+    ScrollTrigger.addEventListener('refreshInit', measure);
+
+    gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
     var title = SplitText.create('.kath-banner-title', { type: 'chars,lines', mask: 'lines' });
-    gsap.from(title.chars, { yPercent: 110, duration: 0.6, stagger: 0.03, ease: 'power3.out',
-      scrollTrigger: { trigger: '.story-photos', start: 'center 70%' } });
-    // o traçado "se desenha" de cima pra baixo acompanhando o scroll
-    gsap.fromTo('.kath-swoosh-m', { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none',
-      scrollTrigger: { trigger: '.kath-swoosh-m', start: 'top 75%', end: 'bottom 65%', scrub: 0.6 } });
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: pin,
+        start: 'top top',
+        end: function () { return '+=' + window.innerHeight * 3.2; },
+        pin: pin,
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+    // 1) as faixas caem de cima, uma depois da outra (cada uma desce por trás da anterior)
+    photos.forEach(function (p, i) {
+      tl.fromTo(p, { yPercent: -100 * (i + 1) }, { yPercent: 0, duration: 1, ease: 'power3.out' }, i * 0.35);
+      tl.fromTo(imgs[i], { scale: 1.25 }, { scale: 1, duration: 1.3, ease: 'power2.out' }, i * 0.35);
+    });
+    // 2) escurece e aparece o título
+    tl.fromTo(dims, { opacity: 0 }, { opacity: 0.6, duration: 0.8, ease: 'none' }, 1.6)
+      .from(title.chars, { yPercent: 110, duration: 0.6, stagger: 0.03, ease: 'power3.out' }, 1.8);
+    // 3) o traçado se desenha (do canto de cima até o pé das faixas)
+    tl.to(path, { strokeDashoffset: function () { return len * (1 - f); }, duration: 1.6, ease: 'none' }, 2.9)
+      .to({}, { duration: 0.3 });
+
+    // …e, já com a cena solta, continua descendo até o "Kath?"
+    gsap.fromTo(path, { strokeDashoffset: function () { return len * (1 - f); } }, {
+      strokeDashoffset: 0, ease: 'none', immediateRender: false,
+      scrollTrigger: { trigger: '.stack', start: 'top bottom', endTrigger: '.about-title', end: 'bottom 60%', scrub: 0.6, invalidateOnRefresh: true, pinnedContainer: pin }
+    });
+
+    // (tudo abaixo está dentro do bloco fixado: pinnedContainer corrige as posições de disparo)
     gsap.from('.stack .card-box', { y: 80, autoAlpha: 0, stagger: 0.12, duration: 1, ease: 'power3.out',
-      scrollTrigger: { trigger: '.stack', start: 'top 85%' } });
-    reveal('.about-title');
+      scrollTrigger: { trigger: '.stack', start: 'top 85%', pinnedContainer: pin } });
+    var aboutTitle = SplitText.create('.about-title', { type: 'lines', mask: 'lines' });
+    gsap.from(aboutTitle.lines, { yPercent: 110, duration: 0.9, stagger: 0.05, ease: 'power3.out',
+      scrollTrigger: { trigger: '.about-title', start: 'top 88%', pinnedContainer: pin } });
     var splits = justifiedLines('.about-body p');
     splits.forEach(function (s) {
-      gsap.from(s.lines, { yPercent: 110, duration: 0.9, stagger: 0.04, ease: 'power3.out', scrollTrigger: { trigger: s.elements[0], start: 'top 88%' } });
+      gsap.from(s.lines, { yPercent: 110, duration: 0.9, stagger: 0.04, ease: 'power3.out', scrollTrigger: { trigger: s.elements[0], start: 'top 88%', pinnedContainer: pin } });
     });
     gsap.from('.about-ctas .btn', { y: 24, autoAlpha: 0, duration: 0.7, ease: 'power3.out',
-      scrollTrigger: { trigger: '.about-ctas', start: 'top 92%' } });
-    return function () { title.revert(); splits.forEach(function (s) { s.revert(); }); };
+      scrollTrigger: { trigger: '.about-ctas', start: 'top 92%', pinnedContainer: pin } });
+    return function () {
+      aboutEnd = null;
+      ScrollTrigger.removeEventListener('refreshInit', measure);
+      title.revert(); aboutTitle.revert(); splits.forEach(function (s) { s.revert(); });
+      gsap.set([photos, imgs, dims, path], { clearProps: 'all' });
+    };
   }
 
   /* =========================================================
@@ -523,7 +576,9 @@
     if (reduce) return;
     var range = { trigger: '.zaparoli', start: 'top bottom', end: 'bottom top', scrub: true };
     // as palavras entram de lados opostos e terminam cobrindo exatamente a largura da tela
-    var settle = { trigger: '.zaparoli', start: 'top bottom', end: 'bottom bottom', scrub: 1 };
+    // no celular a seção é baixa: as palavras precisam assentar (centralizadas) antes de chegar ao meio da tela
+    var mobile = !window.matchMedia('(min-width: 1024px)').matches;
+    var settle = { trigger: '.zaparoli', start: 'top bottom', end: mobile ? 'top 40%' : 'bottom bottom', scrub: 1 };
     gsap.fromTo('.zap-top', { xPercent: 14 }, { xPercent: 0, ease: 'power2.out', scrollTrigger: settle });
     gsap.fromTo('.zap-bottom', { xPercent: -14 }, { xPercent: 0, ease: 'power2.out', scrollTrigger: settle });
 

@@ -762,6 +762,7 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   font-size: 16px;
   line-height: 1.022;
 }
+.pcard:has([data-card-link]) { cursor: pointer; }   /* o card inteiro é clicável (script.js) */
 .pcard-content {
   position: absolute;
   width: 263.689px;
@@ -1166,6 +1167,7 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
 @media (max-width: 1023.98px) {
   .home .stage { width: 390px; zoom: var(--mz); }
   .home .m-only { display: inline; }   /* textos que o frame mobile escreve diferente */
+  .home .btn.m-only { display: inline-flex; }
   .home .d-only { display: none; }
 
   /* botões com o brilho vermelho em escala de celular */
@@ -1243,51 +1245,56 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   .home .stat-num { font-size: 56px; letter-spacing: -1.68px; }
   .home .stat-label { width: 256.02px; margin: 0 auto; font-size: 22.948px; letter-spacing: -0.6884px; }
 
-  /* ---------- fotos + "Quem é a Kath?" ---------- */
+  /* ---------- fotos + "Quem é a Kath?" (cena fixa no scroll, como no desktop: script.js) ---------- */
   .home .story-pin { height: auto; overflow: visible; background: var(--white); }
   .home .about-bg, .home .kath-swoosh { display: none; }
-  /* 4 faixas de 390 × 218.5 (de cima pra baixo: 1862, PLS04305, DSC06605, 1824) */
+  /* 4 faixas que ocupam a tela toda (de cima pra baixo: 1862, PLS04305, DSC06605, 1824).
+     --ph = altura da tela em px do frame de 390 (o bloco tem zoom) */
   .home .story-photos {
+    --ph: calc(100svh / var(--mz));
     position: relative;
     inset: auto;
     width: 390px;
-    height: 874px;
+    height: var(--ph);
     zoom: var(--mz);
+    overflow: hidden;
+    background: #000;   /* as fotos caem sobre o preto, como no desktop */
     display: flex;
     flex-direction: column-reverse;
   }
-  .home .sp { position: relative; flex: none; width: 100%; height: 218.5px; }
+  .home .sp { position: relative; flex: none; width: 100%; height: 25%; }
+  .home .sp-4 { z-index: 4; } .home .sp-3 { z-index: 3; } .home .sp-2 { z-index: 2; } .home .sp-1 { z-index: 1; }
   .home .sp-dim { opacity: 0.6; }
-  .home .sp-4 img, .home .sp-1 img { left: -17.41%; top: -80.45%; width: 134.81%; height: 360.9%; }
-  .home .sp-3 img { left: -9.82%;  top: -71.74%; width: 113.9%;  height: 304.91%; }
-  .home .sp-2 img { left: -6.54%;  top: -78.32%; width: 113.08%; height: 302.73%; }
+  /* recortes do Figma na largura; na altura a foto fica no mesmo ponto do Figma (object-position) */
+  .home .sp img { top: 0; height: 100%; object-fit: cover; }
+  .home .sp-4 img, .home .sp-1 img { left: -17.41%; width: 134.81%; object-position: 50% 30.8%; }
+  .home .sp-3 img { left: -9.82%;  width: 113.9%;  object-position: 50% 35%; }
+  .home .sp-2 img { left: -6.54%;  width: 113.08%; object-position: 50% 38.6%; }
 
   .home .story-title {
-    display: block;
-    inset: 0 auto auto 0;
-    width: 390px;
-    height: 874px;
-    zoom: var(--mz);
+    display: flex;
+    inset: 0 0 auto;
+    height: 100svh;
   }
+  .home .story-title .zoom { zoom: var(--mz); }
   .home .kath-banner-title {
-    position: absolute;
-    left: calc(50% - 2.58px);
-    top: 372px;
-    translate: -50% 0;
     width: 261.172px;
+    margin: -16px 0 0 -5.16px;
     font-size: 56px;
     line-height: 1.018;
     letter-spacing: -1.68px;
   }
+  /* traçado: preso ao pé das faixas (no Figma começa 52px abaixo do topo de uma tela de 874px) */
   .home .kath-swoosh-m {
     display: block;
     position: absolute;
     z-index: 3;
     left: -43.07px;
-    top: 52.19px;
+    top: calc(100svh / var(--mz) - 821.81px);
     width: 523.794px;
     height: 1434.35px;
     max-width: none;
+    overflow: visible;
     zoom: var(--mz);
     pointer-events: none;
   }
@@ -1383,12 +1390,13 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
 
   /* camisetas 338.7 × 567.6 */
   .home .pcard-camisetas { width: 338.732px; height: 567.617px; border-radius: 20px; }
+  /* desfoque só embaixo, perto do texto (some em degradê pra cima) */
   .home .camis-veil {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.59));
-    -webkit-backdrop-filter: blur(2.8px);   /* layer blur 5.6 do Figma */
-            backdrop-filter: blur(2.8px);
-    -webkit-mask-image: none;
-            mask-image: none;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.62));
+    -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 42%, #000 66%);
+            mask-image: linear-gradient(to bottom, transparent 42%, #000 66%);
   }
   .home .camis-veil, .home .camis-content > * { opacity: 1; translate: 0 0; }   /* sem hover no celular: sempre visível */
   .home .camis-content { left: 18px; top: 358.3px; width: 190.544px; gap: 17.97px; }
@@ -1422,8 +1430,6 @@ img[data-src] { visibility: hidden; }   /* imagem adiada ainda sem src: não mos
   }
 
   /* ---------- KATHARINA / ZAPAROLI (tamanhos no script.js) ---------- */
-  .home .zap-top    { left: calc(50% + 7.25px * var(--mz)); translate: -50% 0; }
-  .home .zap-bottom { left: calc(50% + 0.79px * var(--mz)); translate: -50% 0; }
   .home .zap-strip img { left: -111.28%; top: -29.23%; width: 332.86%; height: 168.98%; }
 
   /* ---------- se você quer ser lembrado ---------- */
