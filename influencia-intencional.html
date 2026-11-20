@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Influência Intencional — o ebook de Katharina Zaparoli</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <meta name="description" content="A internet já formou uma opinião sobre você. Influência Intencional te ensina a escolher a impressão que você deixa, antes que o feed escolha por você. Ebook em PDF, 124 páginas.">
+  <link rel="preload" href="assets/fonts/christmas-bella.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/origin-black-display.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/origin-medium-text.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    /* Antes do 1º paint: escala do palco, cortina da transição e estado da intro em vídeo.
+       A intro (vídeo em tela cheia, sem o resto da página) só roda com JS, sem "reduzir movimento"
+       e quando a pessoa não chegou direto numa âncora (ex.: #faq). */
+    (function (r) {
+      var w = r.clientWidth, s = r.style;
+      r.classList.add('ii-js');
+      s.setProperty('--z', w >= 1024 ? Math.min(1.2, w / 1440) : 1);   /* cresce até 1.2× em telas grandes (ebook.js) */
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce && !location.hash) {
+        r.classList.add('ii-intro');
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      } else {
+        r.classList.add('ii-still');
+      }
+      try { if (sessionStorage.getItem('kz-pt')) { r.classList.add('pt-in'); sessionStorage.removeItem('kz-pt'); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/ebook.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "O produto é físico?", "acceptedAnswer": { "@type": "Answer", "text": "Não. Influência Intencional é um ebook digital disponibilizado em PDF." } },
+      { "@type": "Question", "name": "Como receberei o ebook?", "acceptedAnswer": { "@type": "Answer", "text": "O acesso será disponibilizado após a confirmação do pagamento, conforme as instruções enviadas pela plataforma de pagamento." } },
+      { "@type": "Question", "name": "Preciso ser influenciador?", "acceptedAnswer": { "@type": "Answer", "text": "Não. O livro é para qualquer pessoa cuja imagem digital importa: empreendedores, profissionais, comerciantes, prestadores de serviço e criadores." } },
+      { "@type": "Question", "name": "O livro ensina fórmulas para viralizar?", "acceptedAnswer": { "@type": "Answer", "text": "Não. Ele ensina a construir percepção, identidade e autoridade. Viralizar é consequência, nunca o ponto de partida." } },
+      { "@type": "Question", "name": "O ebook possui exercícios?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. Os capítulos incluem perguntas, exercícios práticos, testes intencionais e um plano de ação de 30 dias." } },
+      { "@type": "Question", "name": "Posso ler pelo celular?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. O arquivo em PDF pode ser lido em celulares, tablets e computadores compatíveis." } }
+    ]
+  }
+  </script>
+</head>
+<body class="ii-page">
+<div class="page">
+
+  <!-- ============ HERO — vídeo em tela cheia; ao terminar, a imagem final (4K) assume e o conteúdo entra ============ -->
+  <header class="ii-hero" id="topo">
+    <div class="ii-hero-media" aria-hidden="true">
+      <picture>
+        <!-- celular em pé: recorte vertical (56 KB) no lugar da imagem 4K (761 KB) -->
+        <source media="(max-aspect-ratio: 3/5)" srcset="assets/ebook/ebook-hero-last-mobile.webp" width="1080" height="1920">
+        <img class="ii-hero-still" src="assets/ebook/ebook-hero-last-1920.webp"
+             srcset="assets/ebook/ebook-hero-last-1920.webp 1920w, assets/ebook/ebook-hero-last-2560.webp 2560w, assets/ebook/ebook-hero-last.webp 4096w"
+             sizes="max(100vw, 177.78vh)" width="4096" height="2304" alt="" decoding="async">
+      </picture>
+      <video class="ii-hero-video" muted playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="assets/ebook/ebook-hero-first.webp"></video>
+      <script>
+        /* começa a baixar/tocar o vídeo o quanto antes (o resto da lógica está em ebook.js).
+           Escolhe a versão pelo tamanho real que o vídeo ocupa na tela (cobre a tela toda, 16:9),
+           em pixels do aparelho: 1080p, 1440p ou 4K. Celular vai no máximo até 1440p (dados móveis). */
+        (function (v) {
+          if (!document.documentElement.classList.contains('ii-intro')) return;
+          var dpr = Math.min(window.devicePixelRatio || 1, 3);
+          var need = Math.max(innerWidth, innerHeight * 16 / 9) * dpr;
+          var res = need <= 1700 ? 1080 : need <= 2700 || innerWidth < 768 ? 1440 : 2160;
+          v.src = 'assets/ebook/ebook-hero-' + res + '.mp4';
+          var p = v.play();
+          if (p && p.catch) p.catch(function () { v.dataset.blocked = '1'; v.dispatchEvent(new Event('ii-blocked')); });
+        })(document.currentScript.previousElementSibling);
+      </script>
+    </div>
+    <div class="ii-hero-shade" aria-hidden="true"></div>
+
+    <div class="stage ii-nav-stage">
+      <nav class="nav ii-nav" aria-label="Seções da página">
+        <a class="nav-brand" href="index.html" title="Voltar para o início">Katharina Zaparoli</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="#o-problema">O problema</a></li>
+          <li><a href="#pra-quem-e">Pra quem é</a></li>
+          <li><a href="#antes-e-depois">Antes e depois</a></li>
+          <li><a href="#o-que-tem-dentro">O que tem dentro</a></li>
+          <li><a href="#a-autora">A autora</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+        </ul>
+        <a class="btn btn-sm btn-primary" href="https://pay.kirvano.com/9aa497c9-ecc4-4eae-8cae-2fd1627d4a17">Quero o meu</a>
+      </nav>
+    </div>
+
+    <div class="ii-hero-inner">
+      <div class="w ii-hero-copy">
+        <h1 class="ii-hero-title">A internet já formou uma <span class="red">opinião sobre você.</span></h1>
+        <p class="ii-hero-text"><b>Foi essa a impressão que você queria causar?</b> Influência Intencional te ensina a escolher a impressão que você deixa, antes que o feed escolha por você.</p>
+        <div class="ii-hero-ctas">
+          <a class="btn btn-lg btn-primary btn-glow" href="https://pay.kirvano.com/9aa497c9-ecc4-4eae-8cae-2fd1627d4a17">QUERO O MEU AGORA!</a>
+          <a class="ii-link-light" href="#o-que-tem-dentro">Ver o que tem dentro <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </div>
+
+    <button class="ii-skip" type="button">Pular intro</button>
+  </header>
+
+  <!-- duas faixas cruzadas correndo em sentidos opostos, logo abaixo do hero -->
+  <div class="ii-marquee-x" aria-hidden="true">
+    <div class="ii-marquee ii-marquee-back"><div class="ii-marquee-track"><span>Escolha a impressão que você deixa</span><i>●</i><span>Antes que o feed escolha por você</span><i>●</i><span>Escolha a impressão que você deixa</span><i>●</i><span>Antes que o feed escolha por você</span><i>●</i><span>Escolha a impressão que você deixa</span><i>●</i><span>Antes que o feed escolha por você</span><i>●</i><span>Escolha a impressão que você deixa</span><i>●</i><span>Antes que o feed escolha por você</span><i>●</i><span>Escolha a impressão que você deixa</span><i>●</i><span>Antes que o feed escolha por você</span><i>●</i><span>Escolha a impressão que você deixa</span><i>●</i><span>Antes que o feed escolha por você</span><i>●</i></div></div>
+    <div class="ii-marquee ii-marquee-front"><div class="ii-marquee-track"><span>Influência Intencional</span><i>✦</i><span>Percepção</span><i>✦</i><span>Identidade</span><i>✦</i><span>Autoridade</span><i>✦</i><span>Comunidade</span><i>✦</i><span>Influência Intencional</span><i>✦</i><span>Percepção</span><i>✦</i><span>Identidade</span><i>✦</i><span>Autoridade</span><i>✦</i><span>Comunidade</span><i>✦</i><span>Influência Intencional</span><i>✦</i><span>Percepção</span><i>✦</i><span>Identidade</span><i>✦</i><span>Autoridade</span><i>✦</i><span>Comunidade</span><i>✦</i><span>Influência Intencional</span><i>✦</i><span>Percepção</span><i>✦</i><span>Identidade</span><i>✦</i><span>Autoridade</span><i>✦</i><span>Comunidade</span><i>✦</i></div></div>
+  </div>
+
+  <main>
+    <!-- ============ 01 · O PROBLEMA ============ -->
+    <section class="ii-sec ii-problem" id="o-problema" aria-labelledby="ii-problem-title">
+      <div class="w">
+        <h2 class="ii-d ii-fill ii-problem-title" id="ii-problem-title">Talvez o seu problema nunca tenha sido <em class="ii-script ii-script-flat">falta de capacidade.</em></h2>
+        <div class="ii-problem-grid">
+          <div class="ii-col-note" data-r><p class="ii-p ii-mark">Você estudou, trabalhou e tem muito a dizer. Aí alguém abre o seu perfil e vê um conteúdo solto, uma legenda parecida com outras mil, <b>uma pessoa difícil de entender.</b></p></div>
+          <div class="ii-col-note" data-r><p class="ii-p ii-p-lg ii-mark">Entre quem você é e o que o seu perfil comunica existe uma distância. <b>Este livro foi escrito pra diminuir ela.</b></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 · PERCEPÇÃO — painel escuro, perguntas trocando com o scroll ============ -->
+    <section class="ii-sec ii-band" aria-labelledby="ii-band-title">
+      <div class="ii-panel">
+        <div class="w ii-band-in">
+          <div class="ii-band-top">
+            <p class="ii-p ii-p-lg ii-band-t1">Antes de comprar, seguir ou contratar, as pessoas formam uma percepção em poucos segundos.</p>
+            <p class="ii-script ii-band-ask" aria-hidden="true">e se perguntam:</p>
+          </div>
+          <div class="ii-ask-wrap">
+            <span class="ii-ask-glyph" aria-hidden="true">?</span>
+            <!-- as perguntas trocam com o scroll (a seção fica fixa até a última); sem JS fica só a última -->
+            <h2 class="ii-ask" id="ii-band-title">
+              <span class="ii-ask-l">Quem é você?</span>
+              <span class="ii-ask-l">Por que eu deveria prestar atenção?</span>
+              <span class="ii-ask-l">Tem verdade aí?</span>
+              <span class="ii-ask-l red">É só mais alguém repetindo o que todo mundo já disse?</span>
+            </h2>
+          </div>
+          <div class="ii-band-foot">
+            <div class="ii-ask-meta" aria-hidden="true"><span class="ii-ask-n">01</span><i class="ii-ask-bar"><i></i></i><span>04</span></div>
+            <p class="ii-p ii-band-t2">A maioria dos criadores aprende a postar. Poucos aprendem a construir percepção. <b>É aí que a influência começa.</b></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 · O QUE VEM ANTES ============ -->
+    <section class="ii-sec ii-pitch" aria-labelledby="ii-pitch-title">
+      <div class="w">
+        <h2 class="ii-d ii-fill ii-pitch-title" id="ii-pitch-title">Muita gente ensina o que postar. <span class="red">Quase ninguém ensina</span> <em class="ii-script ii-script-xl">o que vem antes.</em></h2>
+        <div class="ii-pitch-grid">
+          <div class="ii-pitch-media">
+            <figure class="ii-photo ii-photo-stage">
+              <div class="ii-px"><img src="assets/ebook/ii-photo-stage.webp" width="1500" height="2000" alt="Katharina Zaparoli palestrando com um microfone na mão" decoding="async"></div>
+            </figure>
+          </div>
+          <div class="ii-pitch-copy">
+            <p class="ii-p ii-p-lg ii-pitch-lead" data-r>Como você quer ser percebido? Sem essa resposta, o resto vira tentativa e erro com a sua cara na vitrine.</p>
+            <ul class="ii-nope">
+              <li data-r><span class="ii-row-n">01</span><strong>Não adianta</strong><span>postar todo dia se cada post constrói uma versão diferente de você.</span></li>
+              <li data-r><span class="ii-row-n">02</span><strong>Não adianta</strong><span>dominar a tendência se ninguém reconhece a sua voz.</span></li>
+              <li data-r><span class="ii-row-n">03</span><strong>Não adianta</strong><span>ter seguidor que não confia e não se mexe quando você fala.</span></li>
+            </ul>
+            <figure class="ii-photo ii-photo-wide">
+              <div class="ii-px"><img src="assets/ebook/ii-photo-wide.webp" width="1440" height="1920" alt="Katharina Zaparoli iluminada por uma luz alaranjada" decoding="async"></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 · PRA QUEM É ============ -->
+    <section class="ii-sec ii-for" id="pra-quem-e" aria-labelledby="ii-for-title">
+      <div class="w">
+        <div class="ii-for-head">
+          <h2 class="ii-d ii-fill ii-for-title" id="ii-for-title">Esse livro é pra você que...</h2>
+          <img class="ii-crown" src="assets/ebook/crown.svg" width="107.353" height="107.353" alt="" aria-hidden="true">
+        </div>
+        <ol class="ii-for-list">
+          <li><span class="ii-row-n">01</span><span class="ii-for-t">Sabe que tem algo importante pra dizer, mas ainda fala baixo</span><i class="ii-check" aria-hidden="true"></i></li>
+          <li><span class="ii-row-n">02</span><span class="ii-for-t">Produz conteúdo e não consegue formar uma identidade clara</span><i class="ii-check" aria-hidden="true"></i></li>
+          <li><span class="ii-row-n">03</span><span class="ii-for-t">Tem medo de parecer forçado, artificial ou "mais um"</span><i class="ii-check" aria-hidden="true"></i></li>
+          <li><span class="ii-row-n">04</span><span class="ii-for-t">Está cansado de copiar fórmula que funciona pra todo mundo, menos pra você</span><i class="ii-check" aria-hidden="true"></i></li>
+          <li><span class="ii-row-n">05</span><span class="ii-for-t">Precisa comunicar o próprio valor antes que o mercado interprete errado</span><i class="ii-check" aria-hidden="true"></i></li>
+        </ol>
+        <div class="ii-for-foot">
+          <p class="ii-for-close" data-r>Talvez você cresça deixando a pessoa certa aparecer, <em class="ii-script">sem virar outra.</em></p>
+          <a class="btn btn-lg btn-primary btn-glow" data-r href="https://pay.kirvano.com/9aa497c9-ecc4-4eae-8cae-2fd1627d4a17">QUERO O MEU AGORA!</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ A TRANSFORMAÇÃO — antes / depois ============ -->
+    <section class="ii-sec ii-change" id="antes-e-depois" aria-labelledby="ii-change-title">
+      <div class="ii-dark" aria-hidden="true"></div>
+      <div class="stage">
+        <div class="ii-brush ii-brush-2" aria-hidden="true"><div><img src="assets/ebook/brush-dark-2.svg" width="708.728" height="2276.54" alt=""></div></div>
+        <h2 class="ii-h ii-fill ii-change-title" id="ii-change-title">Você termina o livro sabendo por que publica, pra quem e <span class="red">que percepção quer construir.</span></h2>
+
+        <div class="ii-card ii-card-before">
+          <p class="ii-card-word" aria-hidden="true">Antes</p>
+          <h3 class="sr-only">Antes</h3>
+          <ul class="ii-card-list">
+            <li>Posta pra não sumir</li>
+            <li>Tenta agradar todo mundo</li>
+            <li>Não sabe o que o perfil comunica</li>
+            <li>Recebe atenção, mas não vira autoridade</li>
+            <li>Mede tudo por curtida</li>
+          </ul>
+        </div>
+        <div class="ii-card ii-card-after">
+          <p class="ii-card-word" aria-hidden="true">Depois</p>
+          <h3 class="sr-only">Depois</h3>
+          <ul class="ii-card-list">
+            <li>Publica com direção</li>
+            <li>Tem voz própria e fala pra quem importa</li>
+            <li>Sabe qual impressão causa</li>
+            <li>É lembrado, e a audiência vira comunidade</li>
+            <li>Usa métrica pra decidir e enxerga caminhos de monetização</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ O QUE TEM DENTRO ============ -->
+    <section class="ii-sec ii-inside" id="o-que-tem-dentro" aria-labelledby="ii-inside-title">
+      <div class="ii-inside-bg" aria-hidden="true"></div>
+      <div class="stage">
+        <div class="ii-splash" aria-hidden="true"><img src="assets/ebook/splash-red.svg" width="579.461" height="884.361" alt=""></div>
+        <div class="ii-book-mv"><figure class="ii-book"><img src="assets/ebook/ii-book.webp" width="2200" height="1266" alt="Dois exemplares do livro Influência Intencional, de Katharina Zaparoli" decoding="async"></figure></div>
+        <div class="ii-inside-copy">
+          <div class="ii-inside-head">
+            <h2 class="ii-inside-title" id="ii-inside-title"><span>O que tem</span> <span class="red">dentro</span></h2>
+            <p class="ii-p20" data-r><b class="ii-num">124</b> páginas, <b class="ii-num">14</b> capítulos, exercícios no caminho e um plano de <b class="ii-num">30</b> dias no final. Você vai encontrar:</p>
+          </div>
+          <ul class="ii-tags">
+            <li data-r>posicionamento e identidade</li>
+            <li data-r>storytelling</li>
+            <li data-r>testes intencionais</li>
+            <li data-r>comunidade</li>
+            <li data-r>relação com marcas</li>
+            <li data-r>métricas</li>
+            <li data-r>monetização</li>
+            <li data-r class="is-dark">plano de 30 dias</li>
+          </ul>
+          <a class="btn btn-lg btn-primary btn-glow" data-r href="https://pay.kirvano.com/9aa497c9-ecc4-4eae-8cae-2fd1627d4a17">QUERO O MEU AGORA!</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 · AUTORIDADE / ORIGEM ============ -->
+    <section class="ii-sec ii-author" id="a-autora" aria-labelledby="ii-author-title">
+      <div class="w">
+        <div class="ii-author-grid">
+          <div class="ii-author-copy">
+            <h2 class="ii-d ii-d-m ii-fill ii-author-title" id="ii-author-title">Eu escrevi do lugar de quem vive <em class="ii-script">os dois lados.</em></h2>
+            <div class="ii-author-text" data-r>
+              <p>Sou criadora, fotógrafa e estrategista de influência. Também trabalho com marcas, escolhendo, avaliando e negociando com criadores. Por isso sei o que uma empresa percebe quando abre um perfil.</p>
+              <p>O livro nasceu depois de uma conversa de quase três horas sobre criação de conteúdo. Chegaram mensagens de gente dizendo que aquilo tinha aberto caminhos, e eu não consegui dormir pensando: como guardar um conhecimento que poderia mudar a direção de alguém só porque essa pessoa não estava naquela sala?</p>
+            </div>
+            <p class="ii-author-sign" data-r>Este livro é a minha resposta.</p>
+          </div>
+          <div class="ii-author-media">
+            <figure class="ii-photo ii-frame">
+              <div class="ii-px"><img src="assets/ebook/ii-author.webp" width="1020" height="1530" alt="Katharina Zaparoli de blazer risca de giz, encostada numa parede" decoding="async"></div>
+            </figure>
+            <svg class="ii-badge" viewBox="0 0 200 200" aria-hidden="true">
+              <defs><path id="ii-badge-c" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+              <circle cx="100" cy="100" r="98" fill="#ff0044"/>
+              <g class="ii-badge-ring"><text><textPath href="#ii-badge-c" textLength="448" lengthAdjust="spacing">INFLUÊNCIA INTENCIONAL ✦ KATHARINA ZAPAROLI ✦</textPath></text></g>
+              <path d="M100 76 L105 95 L124 100 L105 105 L100 124 L95 105 L76 100 L95 95 Z" fill="#fff"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 · A DECISÃO — CTA final ============ -->
+    <section class="ii-sec ii-final" aria-labelledby="ii-final-title">
+      <div class="ii-panel">
+        <div class="w ii-final-in">
+          <h2 class="ii-d ii-fill ii-final-title" id="ii-final-title">A sua presença já está comunicando alguma coisa. <span class="red">Falta decidir se isso vai continuar acontecendo</span> <em class="ii-script">por acaso.</em></h2>
+          <div class="ii-final-row">
+            <a class="btn btn-primary ii-final-cta" data-r href="https://pay.kirvano.com/9aa497c9-ecc4-4eae-8cae-2fd1627d4a17">Quero construir a forma como vou ser visto <span aria-hidden="true">→</span></a>
+            <p class="ii-final-meta" data-r>Ebook em PDF · 124 páginas · Leia no celular, tablet ou computador</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="ii-faq" id="faq" aria-labelledby="ii-faq-title">
+      <div class="stage">
+        <p class="ii-faq-tag" data-r><i aria-hidden="true"></i>Dúvidas</p>
+        <h2 class="ii-faq-title" id="ii-faq-title">Perguntas <span class="red">frequentes</span></h2>
+
+        <div class="ii-acc">
+          <div data-r class="ii-q is-open">
+            <h3><button type="button" class="ii-q-btn" aria-expanded="true" aria-controls="ii-a1" id="ii-q1"><span class="ii-q-n">1</span><span class="ii-q-t">O produto é físico?</span><span class="ii-q-ic" aria-hidden="true"></span></button></h3>
+            <div class="ii-a" id="ii-a1" role="region" aria-labelledby="ii-q1"><div><p>Não. Influência Intencional é um ebook digital disponibilizado em PDF.</p></div></div>
+          </div>
+          <div data-r class="ii-q">
+            <h3><button type="button" class="ii-q-btn" aria-expanded="false" aria-controls="ii-a2" id="ii-q2"><span class="ii-q-n">2</span><span class="ii-q-t">Como receberei o ebook?</span><span class="ii-q-ic" aria-hidden="true"></span></button></h3>
+            <div class="ii-a" id="ii-a2" role="region" aria-labelledby="ii-q2"><div><p>O acesso será disponibilizado após a confirmação do pagamento, conforme as instruções enviadas pela plataforma de pagamento.</p></div></div>
+          </div>
+          <div data-r class="ii-q">
+            <h3><button type="button" class="ii-q-btn" aria-expanded="false" aria-controls="ii-a3" id="ii-q3"><span class="ii-q-n">3</span><span class="ii-q-t">Preciso ser influenciador?</span><span class="ii-q-ic" aria-hidden="true"></span></button></h3>
+            <div class="ii-a" id="ii-a3" role="region" aria-labelledby="ii-q3"><div><p>Não. O livro é para qualquer pessoa cuja imagem digital importa: empreendedores, profissionais, comerciantes, prestadores de serviço e criadores.</p></div></div>
+          </div>
+          <div data-r class="ii-q">
+            <h3><button type="button" class="ii-q-btn" aria-expanded="false" aria-controls="ii-a4" id="ii-q4"><span class="ii-q-n">4</span><span class="ii-q-t">O livro ensina fórmulas para viralizar?</span><span class="ii-q-ic" aria-hidden="true"></span></button></h3>
+            <div class="ii-a" id="ii-a4" role="region" aria-labelledby="ii-q4"><div><p>Não. Ele ensina a construir percepção, identidade e autoridade. Viralizar é consequência, nunca o ponto de partida.</p></div></div>
+          </div>
+          <div data-r class="ii-q">
+            <h3><button type="button" class="ii-q-btn" aria-expanded="false" aria-controls="ii-a5" id="ii-q5"><span class="ii-q-n">5</span><span class="ii-q-t">O ebook possui exercícios?</span><span class="ii-q-ic" aria-hidden="true"></span></button></h3>
+            <div class="ii-a" id="ii-a5" role="region" aria-labelledby="ii-q5"><div><p>Sim. Os capítulos incluem perguntas, exercícios práticos, testes intencionais e um plano de ação de 30 dias.</p></div></div>
+          </div>
+          <div data-r class="ii-q">
+            <h3><button type="button" class="ii-q-btn" aria-expanded="false" aria-controls="ii-a6" id="ii-q6"><span class="ii-q-n">6</span><span class="ii-q-t">Posso ler pelo celular?</span><span class="ii-q-ic" aria-hidden="true"></span></button></h3>
+            <div class="ii-a" id="ii-a6" role="region" aria-labelledby="ii-q6"><div><p>Sim. O arquivo em PDF pode ser lido em celulares, tablets e computadores compatíveis.</p></div></div>
+          </div>
+        </div>
+
+        <p class="ii-faq-more" data-r>Ainda tem alguma dúvida? <a href="trabalhe-comigo.html">Fale comigo <span aria-hidden="true">→</span></a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- progresso da leitura (no lugar da barra de rolagem, que fica escondida nesta página) -->
+  <div class="ii-progress" aria-hidden="true"><i></i></div>
+
+<!-- barra de compra: aparece depois do hero, some perto do CTA final e do footer -->
+  <aside class="ii-buybar" aria-label="Comprar o ebook">
+    <img class="ii-buybar-img" src="assets/ebook/ii-book.webp" width="2200" height="1266" alt="" loading="lazy" decoding="async">
+    <p class="ii-buybar-name">Influência Intencional</p>
+    <a class="btn btn-primary ii-buybar-btn" href="https://pay.kirvano.com/9aa497c9-ecc4-4eae-8cae-2fd1627d4a17">QUERO O MEU AGORA!</a>
+  </aside>
+
+  <!-- faixa vermelha atrás do topo do footer -->
+  <div class="ii-foot-band" aria-hidden="true"></div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="stage">
+      <a class="foot-brand" href="index.html">Katharina Zaparoli</a>
+      <p class="foot-tagline">Influência, comportamento, comunicação e tudo aquilo que existe por trás do que move pessoas.</p>
+
+      <nav class="foot-cols" aria-label="Rodapé">
+        <div class="foot-col">
+          <p class="foot-head">Links Rápidos</p>
+          <a class="u" href="index.html">Início</a>
+          <a href="influencia-intencional.html" aria-current="page">Ebook</a>
+          <a class="u" href="trabalhe-comigo.html">Trabalhe comigo</a>
+          <a href="index.html#camisetas">Camisetas do Bobo</a>
+        </div>
+        <div class="foot-col foot-col-n" id="redes">
+          <p class="foot-head">Redes</p>
+          <a class="u" href="https://instagram.com/kathzaparoli" target="_blank" rel="noopener">Instagram</a>
+          <a class="u" href="https://www.tiktok.com/@kathzaparoli" target="_blank" rel="noopener">TikTok</a>
+          <a class="u" href="https://www.youtube.com/@kathzaparoli" target="_blank" rel="noopener">YouTube</a>
+        </div>
+        <div class="foot-col foot-col-n">
+          <p class="foot-head">Outros</p>
+          <a class="u foot-terms" href="https://kathzaparoli.com.br/termos-de-uso" target="_blank" rel="noopener">Termos de Uso</a>
+          <a class="u" href="https://kathzaparoli.com.br/politica-de-privacidade" target="_blank" rel="noopener">Política de Privacidade</a>
+        </div>
+      </nav>
+
+      <div class="foot-row">
+        <a class="u" href="mailto:kathzaparolly@gmail.com">kathzaparolly@gmail.com</a>
+        <p>Desenvolvido por: @euangeloo.design</p>
+      </div>
+      <p class="foot-copy">© 2026 Katharina Zaparoli. Todos os direitos reservados.</p>
+      <p class="foot-word" aria-hidden="true">Katharina</p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- cortina da transição entre páginas -->
+<div class="pt" aria-hidden="true"><span class="pt-brand">Katharina Zaparoli</span></div>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/vendor/SplitText.min.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/ebook.js"></script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+/* =========================================================
+   Trabalhe comigo — formulário em etapas
+   (usa fontes, botões, nav e footer de styles.css)
+   ========================================================= */
+
+/* topo: só a nav, no mesmo lugar da home */
+.ct-head { position: relative; z-index: 5; height: calc(106px * var(--z)); }
+.ct-head > .stage { height: 106px; }
+
+.ct { position: relative; overflow: clip; isolation: isolate; }
+
+/* faixa de foto logo abaixo da nav (DSC06463 no Figma: 1670.5 × 227.6, centralizada) */
+.ct-banner {
+  position: relative;
+  left: 50%;
+  width: calc(1670.498px * var(--z));
+  height: calc(227.6px * var(--z));
+  margin-top: calc(6.69px * var(--z));
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+.ct-banner img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center; }
+
+.ct > .stage {
+  display: grid;
+  grid-template-columns: 479.622px 545px;
+  justify-content: space-between;
+  align-items: start;
+  width: 1440px;
+  padding: 42.7px 195px 60px;
+}
+
+/* ---------- intro ---------- */
+.ct-intro { align-self: start; }   /* fixo no topo (sem sticky): não acompanha a altura do formulário */
+.ct-title {
+  width: 479.622px;
+  font-family: var(--f-display);
+  font-weight: normal;
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  text-transform: uppercase;
+}
+.ct-title > span { display: block; }
+.ct-title .l1 { line-height: 0.8076; }
+.ct-title .l2 { line-height: 1.022; color: var(--red); }
+.ct-text {
+  margin-top: 49px;
+  width: 352.361px;
+  font-size: 16px;
+  line-height: normal;
+  letter-spacing: -0.48px;
+  text-align: justify;
+}
+
+.ct-direct { margin-top: 60px; }
+.ct-label { font-family: var(--f-regular); font-size: 14px; color: #6b6b70; letter-spacing: -0.42px; }
+.ct-mail {
+  display: inline-block;
+  margin-top: 1px;
+  font-family: var(--f-regular);
+  font-size: 20px;
+  letter-spacing: -0.6px;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  transition: color .25s;
+}
+.ct-mail:hover { color: var(--red); }
+.ct-socials { margin-top: 14px; gap: 10px; }
+.ct-socials .social { width: 54px; height: 54px; border-width: 2px; border-radius: 10px; }
+.ct-socials .social.is-active, .ct-socials .social:hover { filter: none; }
+.ct-socials .ic-ig { width: 26px; height: 26px; }
+.ct-socials .ic-tt { width: 25px; height: 25px; }
+.ct-socials .ic-yt { width: 29px; height: 19.4px; }
+
+/* ---------- formulário (sem card: direto no fundo branco) ---------- */
+.cf {
+  position: relative;
+  padding-top: 8px;
+  color: var(--black);
+}
+
+.cf-top { display: flex; align-items: center; gap: 18px; margin-bottom: 36px; }
+.cf-count {
+  flex: none;
+  font-family: var(--f-semi);
+  font-size: 13px;
+  letter-spacing: 1.2px;
+  color: #6b6b70;
+}
+.cf-count b { font-weight: normal; color: var(--black); }
+.cf-bar { flex: 1; height: 2px; background: rgba(0, 0, 0, 0.1); overflow: hidden; }
+.cf-bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--red);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0.1667));
+  transition: transform .6s cubic-bezier(.65, 0, .35, 1);
+}
+
+.cf-steps { position: relative; }
+.cf-step { margin: 0; padding: 0; border: 0; min-width: 0; }
+.cf-step + .cf-step { margin-top: 56px; }   /* sem JS: tudo empilhado */
+
+.cf-q {
+  display: block;
+  padding: 0;
+  font-family: var(--f-semid);
+  font-size: 34px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.cf-q .red { color: var(--red); }
+.cf-n {
+  display: block;
+  margin-bottom: 12px;
+  font-family: var(--f-display);
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  color: var(--red);
+}
+.cf-hint {
+  margin-top: 12px;
+  font-family: var(--f-light);
+  font-size: 16px;
+  line-height: 1.3;
+  color: #6b6b70;
+}
+
+/* campos de texto: só a linha de baixo, texto grande */
+.cf-input {
+  display: block;
+  width: 100%;
+  margin-top: 30px;
+  padding: 10px 0 14px;
+  border: 0;
+  border-bottom: 2px solid #d6d6da;
+  border-radius: 0;
+  background: transparent;
+  color: var(--black);
+  font-family: var(--f-text);
+  font-size: 26px;
+  letter-spacing: -0.78px;
+  outline: none;
+  transition: border-color .3s;
+}
+.cf-input::placeholder { color: #b4b4b9; }
+.cf-input:focus { border-color: var(--red); }
+.cf-input-sm { margin-top: 18px; font-size: 20px; letter-spacing: -0.6px; }
+.cf-date { color-scheme: light; font-size: 22px; }
+.cf-date:disabled { opacity: .35; }
+.cf-area {
+  min-height: 150px;
+  padding: 16px 18px;
+  border: 2px solid #d6d6da;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.54px;
+  resize: vertical;
+}
+.cf-meta { margin-top: 8px; text-align: right; font-size: 13px; color: #6b6b70; }
+.cf-meta.is-ok .cf-chars { color: var(--black); }
+
+/* opções em "chips" */
+.cf-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.cf-date + .cf-chips { margin-top: 18px; }
+.chip { position: relative; cursor: pointer; }
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1px solid #353538;
+  border-radius: 5px;
+  font-family: var(--f-semi);
+  font-size: 15px;
+  letter-spacing: -0.45px;
+  white-space: nowrap;
+  transition: background-color .25s, border-color .25s, color .25s, transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.chip span::before {   /* bolinha que vira check */
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid #353538;
+  border-radius: 50%;
+  transition: background-color .25s, border-color .25s, transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.chip:hover span { border-color: var(--black); transform: translateY(-2px); }
+.chip input:focus-visible + span { outline: 2px solid var(--black); outline-offset: 3px; }
+.chip input:checked + span {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+  filter:
+    drop-shadow(0 25px 7.5px rgba(255, 0, 0, 0.1))
+    drop-shadow(0 11px 5.5px rgba(255, 0, 0, 0.2))
+    drop-shadow(0 3px 3px rgba(255, 0, 0, 0.26));
+}
+.chip input:checked + span::before { background: var(--white); border-color: var(--white); transform: scale(1.15); }
+.chip-sm span { padding: 10px 14px; font-size: 13px; }
+
+.cf-more[hidden] { display: none; }
+
+.cf-err {
+  min-height: 0;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--red);
+}
+.cf-err:empty { margin: 0; }
+
+/* revisão */
+/* resumo em 2 colunas (detalhes na largura toda): mais baixo, então a altura
+   reservada pro formulário fica perto da das perguntas */
+.cf-sum { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; margin-top: 20px; }
+.cf-sum > div:last-child { grid-column: 1 / -1; }
+.cf-sum > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: start;
+  gap: 2px 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.cf-sum dt { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #6b6b70; }
+.cf-sum dd {
+  grid-column: 1;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.3;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.cf-sum dd.is-empty { color: #b4b4b9; }
+.cf-edit {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--black);
+  font: inherit;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  cursor: pointer;
+  transition: color .25s;
+}
+.cf-edit:hover { color: var(--red); }
+
+/* enviado */
+.cf-done .cf-q { font-size: 40px; }
+.cf-done-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+
+
+/* navegação */
+.cf-nav { display: flex; align-items: center; justify-content: flex-end; gap: 22px; margin-top: 40px; }
+.cf-back {
+  margin-right: auto;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: #6b6b70;
+  font-family: var(--f-semi);
+  font-size: 14px;
+  letter-spacing: -0.42px;
+  cursor: pointer;
+  transition: color .25s;
+}
+.cf-back::before { content: "← "; }
+.cf-back:hover { color: var(--black); }
+.cf-nav .btn { border: 0; cursor: pointer; }
+.cf-key { margin-top: 12px; text-align: right; font-size: 12px; color: #6b6b70; }
+.cf-key kbd {
+  padding: 2px 6px;
+  border: 1px solid #d6d6da;
+  border-radius: 3px;
+  font-family: var(--f-semi);
+  font-size: 11px;
+  color: #6b6b70;
+}
+.cf-note { margin-top: 26px; font-family: var(--f-light); font-size: 13px; line-height: 1.4; color: #6b6b70; }
+
+/* ---------- sem JS: formulário comum ---------- */
+.cf-review, .cf-done, .cf-top, .cf-next, .cf-back, .cf-key { display: none; }
+
+/* ---------- com JS: uma pergunta por vez ---------- */
+.cf-js .cf-top { display: flex; }
+/* uma etapa por vez, cada uma com a sua altura (botões logo abaixo do conteúdo).
+   Sem overflow:hidden aqui, senão corta as sombras vermelhas dos chips e botões.
+   A altura da maior etapa é reservada no .cf pelo JS (min-height), com a sobra
+   no fim da coluna: assim a coluna da esquerda, centralizada, não se mexe. */
+.cf-js .cf-step { display: none; }
+.cf-js .cf-step + .cf-step { margin-top: 0; }
+.cf-js .cf-step.is-on { display: block; }
+/* detalhes longos no resumo ficam em 2 linhas (não estouram a altura reservada) */
+.cf-js .cf-sum dd { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+.cf-js .cf-next, .cf-js .cf-back { display: inline-flex; }
+.cf-js .cf-key { display: block; }
+.cf-js .cf-send { display: none; }
+.cf-js .cf.is-first .cf-back { visibility: hidden; }
+.cf-js .cf.is-review .cf-next { display: none; }
+.cf-js .cf.is-review .cf-key { visibility: hidden; }   /* esconde sem mudar a altura */
+.cf-js .cf.is-review .cf-send { display: inline-flex; }
+.cf-js .cf.is-done .cf-nav, .cf-js .cf.is-done .cf-key, .cf-js .cf.is-done .cf-top { visibility: hidden; }
+.cf-js .cf.is-textarea .cf-key kbd::before { content: "Ctrl + "; }
+
+@keyframes cf-shake {
+  0%, 100% { transform: none; }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(3px); }
+}
+.cf.is-shake { animation: cf-shake .45s cubic-bezier(.36, .07, .19, .97); }
+
+/* entrada da página (antes do JS rodar a animação) */
+.cf-js .ct-intro > *, .cf-js .cf, .cf-js .ct-banner img { visibility: hidden; }
+.cf-js.ct-ready .ct-intro > *, .cf-js.ct-ready .cf, .cf-js.ct-ready .ct-banner img { visibility: visible; }
+
+/* footer: na home ele sobe por cima da seção anterior; aqui fica solto */
+.ct-page .footer { margin-top: 0; }
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 1023.98px) {
+  .cf-sum { grid-template-columns: 1fr; }
+  .ct-head { height: auto; padding: 16px 20px 0; }
+  .ct-head > .stage { height: auto; }
+  .ct > .stage {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 44px;
+    padding: 32px 20px 64px;
+  }
+  .ct-banner { width: 100%; left: 0; transform: none; height: 150px; margin-top: 16px; }
+  .ct-intro { position: static; }
+  .ct-title { width: auto; font-size: 40px; letter-spacing: -1.2px; }
+  .ct-text { width: auto; margin-top: 28px; }
+  .ct-direct { margin-top: 32px; }
+  .cf { padding-top: 0; }
+  .cf-q { font-size: 27px; }
+  .cf-input { font-size: 22px; }
+  .chip span { padding: 12px 14px; font-size: 14px; white-space: normal; }
+  .cf-nav { gap: 14px; }
+  .cf-nav .btn { padding: 18px 26px; }
+  .cf-key { display: none !important; }
+  .cf-js .cf.is-done .cf-nav, .cf-js .cf.is-done .cf-top { display: none; }
+  .cf-done .cf-q { font-size: 32px; }
+  .ct-text { text-align: left; }   /* justificado em coluna estreita abria buracos entre as palavras */
+  .cf-area { font-size: 17px; }   /* ≥16px: o iPhone não dá zoom ao focar o campo */
+}
+
+/* TABLET em pé (768–1023): coluna mais estreita, banner mais alto */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .ct-head { padding: 20px 40px 0; }
+  .ct > .stage { max-width: 700px; margin: 0 auto; padding: 48px 40px 80px; }
+  .ct-banner { height: 220px; }
+  .ct-title { font-size: 56px; letter-spacing: -1.7px; }
+  .ct-text { font-size: 19px; }
+}
+
+/* ---------- envio automático ---------- */
+.cf-honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }   /* armadilha anti-spam */
+.cf-fallback { color: inherit; text-decoration: underline; text-underline-position: from-font; }
+.cf-fallback:hover { color: var(--black); }
+.cf.is-sending .cf-send { opacity: .7; cursor: progress; }
+.cf.is-sending .cf-back, .cf.is-sending .cf-edit { pointer-events: none; opacity: .4; }
+
+/* banner: abre do centro pra fora (contato.js) */
+.ct-banner { clip-path: inset(0 0 0 0); }

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trabalhe comigo — Katharina Zaparoli</title>
+  <meta name="description" content="Palestras, campanhas, consultoria ou entrevistas: me conta o seu projeto e a mensagem chega direto pra mim.">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/christmas-bella.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/origin-black-display.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/origin-medium-text.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    /* Antes do 1º paint: escala do palco e cortina da transição entre páginas */
+    (function (r) {
+      r.classList.add('cf-js');
+      var w = r.clientWidth, dk = w >= 1024, s = r.style;
+      s.setProperty('--z', dk ? Math.min(1, w / 1440) : 1);
+      try { if (sessionStorage.getItem('kz-pt')) { r.classList.add('pt-in'); sessionStorage.removeItem('kz-pt'); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/contato.css">
+</head>
+<body class="ct-page">
+<div class="page">
+
+  <header class="ct-head">
+    <div class="stage">
+      <nav class="nav" aria-label="Principal">
+        <a class="nav-brand" href="index.html">Katharina Zaparoli</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="index.html#quem-e-a-kath">Sobre</a></li>
+          <li><a href="index.html#palestras">Palestras</a></li>
+          <li><a href="index.html#livro">Livro</a></li>
+          <li><a href="index.html#camisetas">Camisetas da Corte</a></li>
+          <li><a href="index.html#kaze">KAZE</a></li>
+        </ul>
+        <a class="btn btn-sm btn-primary" href="trabalhe-comigo.html" aria-current="page">Trabalhe comigo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ct">
+    <div class="ct-banner" aria-hidden="true">
+      <img src="assets/img/ct-banner-1920.webp"
+           srcset="assets/img/ct-banner-960.webp 960w, assets/img/ct-banner-1920.webp 1920w, assets/img/ct-banner-3200.webp 3200w"
+           sizes="(max-width: 1023.98px) 100vw, min(116vw, 1671px)" width="3200" height="888" alt="" fetchpriority="high">
+    </div>
+
+    <div class="stage">
+      <!-- ============ INTRO ============ -->
+      <div class="ct-intro">
+        <h1 class="ct-title">
+          <span class="l1">Me conta o</span>
+          <span class="l1">seu projeto</span>
+          <span class="l2">e a gente</span>
+          <span class="l2">pensa junto.</span>
+        </h1>
+        <p class="ct-text">Palestras, campanhas, consultoria ou entrevistas. Responde umas perguntas rápidas e a sua mensagem chega direto pra mim.</p>
+
+        <div class="ct-direct">
+          <p class="ct-label">Prefere ir direto?</p>
+          <a class="ct-mail" href="mailto:kathzaparolly@gmail.com">kathzaparolly@gmail.com</a>
+          <ul class="socials ct-socials" aria-label="Redes sociais">
+            <li><a class="social is-active" href="https://instagram.com/kathzaparoli" target="_blank" rel="noopener" aria-label="Instagram"><img class="ic-ig" src="assets/icons/icon-instagram.svg" width="59" height="59" alt=""></a></li>
+            <li><a class="social" href="https://www.tiktok.com/@kathzaparoli" target="_blank" rel="noopener" aria-label="TikTok"><img class="ic-tt" src="assets/icons/icon-tiktok.svg" width="57.341" height="57.341" alt=""></a></li>
+            <li><a class="social" href="https://www.youtube.com/@kathzaparoli" target="_blank" rel="noopener" aria-label="YouTube"><img class="ic-yt" src="assets/icons/icon-youtube.svg" width="65.931" height="43.974" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ============ FORMULÁRIO EM ETAPAS ============
+           Envio automático pelo FormSubmit (formsubmit.co): as respostas chegam direto por e-mail.
+           Sem JS: vira um formulário comum (todas as perguntas na tela) que posta direto no FormSubmit. -->
+      <form class="cf" id="cf" action="https://formsubmit.co/kathzaparolly@gmail.com" method="post" novalidate>
+        <input type="hidden" name="_subject" value="Novo contato pelo site — Trabalhe comigo">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" class="cf-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="cf-top" aria-hidden="true">
+          <p class="cf-count"><b class="cf-cur">01</b> / <span class="cf-total">07</span></p>
+          <div class="cf-bar"><i></i></div>
+        </div>
+
+        <div class="cf-steps">
+          <!-- 1. nome -->
+          <fieldset class="cf-step" data-key="nome" data-label="Nome ou empresa">
+            <legend class="cf-q"><span class="cf-n">01</span>Como posso te chamar?</legend>
+            <p class="cf-hint">Seu nome ou o nome da empresa.</p>
+            <input class="cf-input" type="text" name="nome" id="cf-nome" required autocomplete="name" placeholder="Digite aqui…" aria-label="Seu nome ou empresa">
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- 2. contato (pra Kath conseguir responder) -->
+          <fieldset class="cf-step" data-key="contato" data-label="Contato">
+            <legend class="cf-q"><span class="cf-n">02</span>Por onde eu te respondo?</legend>
+            <p class="cf-hint">Seu e-mail. Se preferir, deixa o WhatsApp também.</p>
+            <input class="cf-input" type="email" name="email" id="cf-email" required autocomplete="email" inputmode="email" placeholder="seu@email.com" aria-label="Seu e-mail">
+            <input class="cf-input cf-input-sm" type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="WhatsApp (opcional)" aria-label="WhatsApp (opcional)">
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- 3. tipo -->
+          <fieldset class="cf-step" data-key="tipo" data-label="Tipo de projeto" data-auto>
+            <legend class="cf-q"><span class="cf-n">03</span>Qual é o tipo de projeto?</legend>
+            <p class="cf-hint">Escolhe o que mais se parece com a sua ideia.</p>
+            <div class="cf-chips">
+              <label class="chip"><input type="radio" name="tipo" value="Palestra ou evento" required><span>Palestra ou evento</span></label>
+              <label class="chip"><input type="radio" name="tipo" value="Campanha ou publicidade"><span>Campanha ou publicidade</span></label>
+              <label class="chip"><input type="radio" name="tipo" value="Consultoria de imagem"><span>Consultoria de imagem</span></label>
+              <label class="chip"><input type="radio" name="tipo" value="Entrevista ou podcast"><span>Entrevista ou podcast</span></label>
+              <label class="chip"><input type="radio" name="tipo" value="Outro" data-reveal="cf-tipo-outro"><span>Outro</span></label>
+            </div>
+            <div class="cf-more" id="cf-tipo-outro" hidden>
+              <input class="cf-input cf-input-sm" type="text" name="tipo_outro" placeholder="Qual? Me conta em poucas palavras" aria-label="Qual tipo de projeto">
+            </div>
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- 4. data -->
+          <fieldset class="cf-step" data-key="data" data-label="Data pretendida">
+            <legend class="cf-q"><span class="cf-n">04</span>Já tem uma data em mente?</legend>
+            <p class="cf-hint">Se ainda não tiver, tudo bem. Dá pra pular.</p>
+            <input class="cf-input cf-date" type="date" name="data" aria-label="Data pretendida">
+            <div class="cf-chips">
+              <label class="chip chip-sm"><input type="checkbox" name="sem_data" value="Ainda não tenho data" data-clears="data"><span>Ainda não tenho data</span></label>
+            </div>
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- 5. formato -->
+          <fieldset class="cf-step" data-key="formato" data-label="Cidade ou formato">
+            <legend class="cf-q"><span class="cf-n">05</span>Presencial ou on-line?</legend>
+            <p class="cf-hint">Se for presencial, me diz a cidade.</p>
+            <div class="cf-chips">
+              <label class="chip"><input type="radio" name="formato" value="Presencial" data-reveal="cf-cidade"><span>Presencial</span></label>
+              <label class="chip"><input type="radio" name="formato" value="On-line"><span>On-line</span></label>
+              <label class="chip"><input type="radio" name="formato" value="Híbrido" data-reveal="cf-cidade"><span>Híbrido</span></label>
+            </div>
+            <div class="cf-more" id="cf-cidade" hidden>
+              <input class="cf-input cf-input-sm" type="text" name="cidade" autocomplete="address-level2" placeholder="Cidade / estado" aria-label="Cidade">
+            </div>
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- 6. orçamento -->
+          <fieldset class="cf-step" data-key="orcamento" data-label="Orçamento previsto" data-auto>
+            <legend class="cf-q"><span class="cf-n">06</span>Qual o orçamento previsto?</legend>
+            <p class="cf-hint">Uma faixa já me ajuda a pensar na melhor proposta.</p>
+            <div class="cf-chips">
+              <label class="chip"><input type="radio" name="orcamento" value="Até R$ 5 mil"><span>Até R$ 5 mil</span></label>
+              <label class="chip"><input type="radio" name="orcamento" value="R$ 5 a 15 mil"><span>R$ 5 a 15 mil</span></label>
+              <label class="chip"><input type="radio" name="orcamento" value="R$ 15 a 30 mil"><span>R$ 15 a 30 mil</span></label>
+              <label class="chip"><input type="radio" name="orcamento" value="Acima de R$ 30 mil"><span>Acima de R$ 30 mil</span></label>
+              <label class="chip"><input type="radio" name="orcamento" value="Prefiro conversar"><span>Prefiro conversar</span></label>
+            </div>
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- 7. detalhes -->
+          <fieldset class="cf-step" data-key="detalhes" data-label="Detalhes do projeto">
+            <legend class="cf-q"><span class="cf-n">07</span>Agora, os detalhes.</legend>
+            <p class="cf-hint">Público, objetivo, o que você imagina. Quanto mais contexto, melhor.</p>
+            <textarea data-lenis-prevent class="cf-input cf-area" name="detalhes" rows="5" maxlength="1200" required placeholder="Escreve do seu jeito…" aria-label="Detalhes do projeto"></textarea>
+            <p class="cf-meta"><span class="cf-chars">0</span> / 1200</p>
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- revisão -->
+          <fieldset class="cf-step cf-review" data-key="revisao">
+            <legend class="cf-q">Tudo certo?</legend>
+            <p class="cf-hint">Confere o resumo. Dá pra editar qualquer resposta.</p>
+            <dl class="cf-sum"></dl>
+            <p class="cf-err" role="alert"></p>
+          </fieldset>
+
+          <!-- enviado -->
+          <div class="cf-step cf-done" data-key="enviado" tabindex="-1">
+            <p class="cf-q">Mensagem <span class="red">enviada!</span></p>
+            <p class="cf-hint">Recebi tudo por aqui. Te respondo no e-mail que você deixou assim que possível.</p>
+            <div class="cf-done-ctas">
+              <a class="btn btn-lg btn-primary btn-glow" href="index.html">Voltar ao site</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cf-nav">
+          <button type="button" class="cf-back">Voltar</button>
+          <button type="button" class="btn btn-lg btn-primary btn-glow cf-next">Continuar</button>
+          <button type="submit" class="btn btn-lg btn-primary btn-glow cf-send">Enviar</button>
+        </div>
+        <p class="cf-key" aria-hidden="true">ou aperte <kbd>Enter ↵</kbd></p>
+        <p class="cf-note">Suas respostas chegam direto pra mim por e-mail. Nada fica salvo neste site.</p>
+      </form>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="stage">
+      <a class="foot-brand" href="index.html">Katharina Zaparoli</a>
+      <p class="foot-tagline">Influência, comportamento, comunicação e tudo aquilo que existe por trás do que move pessoas.</p>
+
+      <nav class="foot-cols" aria-label="Rodapé">
+        <div class="foot-col">
+          <p class="foot-head">Links Rápidos</p>
+          <a class="u" href="index.html">Início</a>
+          <a href="index.html#livro">Ebook</a>
+          <a class="u" href="trabalhe-comigo.html">Trabalhe comigo</a>
+          <a href="index.html#camisetas">Camisetas do Bobo</a>
+        </div>
+        <div class="foot-col foot-col-n">
+          <p class="foot-head">Redes</p>
+          <a class="u" href="https://instagram.com/kathzaparoli" target="_blank" rel="noopener">Instagram</a>
+          <a class="u" href="https://www.tiktok.com/@kathzaparoli" target="_blank" rel="noopener">TikTok</a>
+          <a class="u" href="https://www.youtube.com/@kathzaparoli" target="_blank" rel="noopener">YouTube</a>
+        </div>
+        <div class="foot-col foot-col-n">
+          <p class="foot-head">Outros</p>
+          <a class="u foot-terms" href="https://kathzaparoli.com.br/termos-de-uso" target="_blank" rel="noopener">Termos de Uso</a>
+          <a class="u" href="https://kathzaparoli.com.br/politica-de-privacidade" target="_blank" rel="noopener">Política de Privacidade</a>
+        </div>
+      </nav>
+
+      <div class="foot-row">
+        <a class="u" href="mailto:kathzaparolly@gmail.com">kathzaparolly@gmail.com</a>
+        <p>Desenvolvido por: @euangeloo.design</p>
+      </div>
+      <p class="foot-copy">© 2026 Katharina Zaparoli. Todos os direitos reservados.</p>
+      <p class="foot-word" aria-hidden="true">Katharina</p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- cortina da transição entre páginas -->
+<div class="pt" aria-hidden="true"><span class="pt-brand">Katharina Zaparoli</span></div>
+
+<div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/SplitText.min.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/contato.js"></script>
+</body>
+</html>

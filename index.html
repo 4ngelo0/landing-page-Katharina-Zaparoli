@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Katharina Zaparoli — Influência Intencional</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <meta name="description" content="Artista, fotógrafa, fundadora da Agência KAZE e autora da Influência Intencional. Eu estudo como as pessoas são percebidas, e como isso muda tudo.">
+  <link rel="preload" as="image" fetchpriority="high" href="assets/img/hero-photo-v2.webp" imagesrcset="assets/img/hero-photo-v2-940.webp 940w, assets/img/hero-photo-v2.webp 1875w" imagesizes="min(938px, 65.2vw)" media="(min-width: 1024px)">
+  <link rel="preload" as="image" fetchpriority="high" href="assets/img/hero-mobile.webp" media="(max-width: 1023.98px)">
+  <link rel="preload" href="assets/fonts/christmas-bella.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/origin-black-display.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/origin-medium-text.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    /* Antes do 1º paint: escala do palco (evita a página "pular") e
+       libera a entrada da foto do hero assim que a imagem estiver decodificada. */
+    (function (r) {
+      r.classList.add('js');
+      var w = r.clientWidth, h = innerHeight, dk = w >= 1024, z = dk ? Math.min(1, w / 1440) : 1, s = r.style;
+      s.setProperty('--z', z);
+      s.setProperty('--fit', dk ? Math.min(1, (h - 60) / (760 * z)) : 1);
+      s.setProperty('--m', w / 1440);
+      s.setProperty('--mz', dk ? 1 : w / 390);   /* celular: escala do frame mobile de 390px do Figma */
+      var done = false, go = function () { if (!done) { done = true; r.classList.add('hero-go'); } };
+      var img = new Image();
+      img.fetchPriority = 'high';
+      if (dk) {
+        img.sizes = 'min(938px, 65.2vw)';
+        img.srcset = 'assets/img/hero-photo-v2-940.webp 940w, assets/img/hero-photo-v2.webp 1875w';
+        img.src = 'assets/img/hero-photo-v2.webp';
+      } else {
+        img.src = 'assets/img/hero-mobile.webp';
+      }
+      if (img.decode) img.decode().then(go, go); else img.onload = img.onerror = go;
+      setTimeout(go, 2500);
+      try { if (sessionStorage.getItem('kz-pt')) { r.classList.add('pt-in'); sessionStorage.removeItem('kz-pt'); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <noscript><style>.stat-bg { background-image: url("assets/img/stats-bg.webp") !important; }</style></noscript>
+</head>
+<body class="home">
+<div class="page">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="topo">
+    <!-- nav fixa no topo: clara no hero; depois dele some ao descer e volta ao subir (script.js) -->
+    <div class="stage nav-stage">
+      <nav class="nav" aria-label="Principal">
+        <a class="nav-brand" href="#topo">Katharina Zaparoli</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="#quem-e-a-kath">Quem sou eu</a></li>
+          <li><a href="#palestras">Palestras</a></li>
+          <li><a href="#livro">Ebook</a></li>
+          <li><a href="#camisetas">Camisetas da Corte</a></li>
+          <li><a href="#kaze">KAZE</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+        <a class="btn btn-sm btn-primary" href="trabalhe-comigo.html">Trabalhe comigo</a>
+      </nav>
+    </div>
+    <div class="stage">
+      <div class="hero-visual" aria-hidden="true">
+        <!-- foto com a borda irregular -->
+        <div class="hero-media">
+          <picture>
+            <!-- celular: recorte próprio do frame mobile (já vem com a borda rasgada) -->
+            <source media="(max-width: 1023.98px)" srcset="assets/img/hero-mobile.webp" width="1481" height="635">
+            <img class="hp-img" src="assets/img/hero-photo-v2.webp" srcset="assets/img/hero-photo-v2-940.webp 940w, assets/img/hero-photo-v2.webp 1875w" sizes="min(938px, 65.2vw)" width="1875" height="1803" alt="" fetchpriority="high">
+          </picture>
+          <div class="hp-cover"></div>
+        </div>
+        <img class="hero-kanji" src="assets/svg/kanji-hero.svg" width="767" height="381" alt="">
+      </div>
+
+
+      <div class="hero-copy">
+        <h1 class="hero-title">
+          <span class="l1">eu estudo como as pessoas são percebidas,</span>
+          <span class="l2">e como isso muda tudo.</span>
+        </h1>
+
+        <p class="hero-text">Artista, fotógrafa, fundadora da Agência KAZE  e autora da Influência Intencional. Trabalho na fronteira entre comportamento humano e comunicação</p>
+
+        <div class="hero-ctas">
+          <a class="btn btn-lg btn-primary btn-glow" href="trabalhe-comigo.html">Trabalhe comigo</a>
+          <a class="btn btn-lg btn-outline" href="#quem-e-a-kath">Saiba Mais</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ NÚMEROS (uma seção, texto troca no scroll) ============ -->
+  <section class="stats" aria-label="Números">
+    <div class="stat-bg" aria-hidden="true"></div>
+    <div class="stage">
+      <img class="stat-kanji" src="assets/svg/kaizen.svg" decoding="async" width="769.029" height="383.501" alt="" aria-hidden="true">
+      <!-- celular: os dois kanji empilhados -->
+      <div class="stat-kanji-m" aria-hidden="true">
+        <img class="sk-1" src="assets/svg/kaizen-m-1.svg" loading="lazy" decoding="async" width="167.38" height="170.461" alt="">
+        <img class="sk-2" src="assets/svg/kaizen-m-2.svg" loading="lazy" decoding="async" width="165.004" height="169.814" alt="">
+      </div>
+      <div class="stat-text">
+        <p class="stat-num">+1 milhão</p>
+        <p class="stat-label">de seguidores nas redes</p>
+      </div>
+      <div class="stat-text">
+        <p class="stat-num">+<span class="cnt" data-to="100">100</span> milhões</p>
+        <p class="stat-label">de visualizações nos últimos 90 dias</p>
+      </div>
+      <div class="stat-text">
+        <p class="stat-num">+<span class="cnt" data-to="10">10</span> anos</p>
+        <p class="stat-label">construindo imagens e narrativas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOTOS → QUEM É A KATH (cena única) ============ -->
+  <section class="story" id="quem-e-a-kath">
+    <div class="story-pin">
+      <div class="about-bg" aria-hidden="true"></div>
+
+      <div class="story-photos">
+        <figure class="sp sp-1"><img data-src="assets/img/img-1824.webp" fetchpriority="low" decoding="async" alt="Katharina palestrando no palco com microfone"><span class="sp-dim"></span></figure>
+        <figure class="sp sp-2"><img data-src="assets/img/dsc-06605.webp" fetchpriority="low" decoding="async" alt="Katharina de óculos escuros e jaqueta de couro"><span class="sp-dim"></span></figure>
+        <figure class="sp sp-3"><img data-src="assets/img/pls-04305.webp" fetchpriority="low" decoding="async" alt="Katharina sorrindo em gravação de podcast"><span class="sp-dim"></span></figure>
+        <figure class="sp sp-4"><img data-src="assets/img/img-1862.webp" fetchpriority="low" decoding="async" alt="Katharina fantasiada, sorrindo com microfone"><span class="sp-dim"></span></figure>
+      </div>
+
+      <div class="story-title" aria-hidden="true">
+        <div class="zoom"><p class="kath-banner-title">Quem é a Kath?</p></div>
+      </div>
+
+      <!-- celular: traçado vermelho que desce das fotos até o título -->
+      <img class="kath-swoosh-m" src="assets/svg/kath-swoosh-m.svg" loading="lazy" decoding="async" width="523.794" height="1434.35" alt="" aria-hidden="true">
+
+      <div class="story-track">
+        <div class="story-about">
+          <div class="stage">
+            <svg class="kath-swoosh" width="1473.741" height="1084.503" viewBox="0 0 1475.26 1086.36" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path d="M1474.74 0.857486C1465.64 6.32008 1195.15 181.637 1151.25 457.585C1105.1 747.696 1170.27 267.59 1009.57 256.756C820.307 243.997 631.572 435.417 297.312 532.557C283.877 536.461 270.208 540.213 256.294 543.794C-88.8935 632.614 -92.4955 329.67 297.312 532.557C314.161 541.327 331.746 551.042 350.069 561.774C792.307 820.799 169.149 481.043 150.009 909.247C134.023 1266.91 132.721 969.104 206.48 969.104C266.933 969.104 142.173 1169.58 239.7 1028.76C337.227 887.95 256.548 1011.37 312.52 1060.86C320.932 1068.3 315.014 1043.94 331.316 1046.88C401.795 1059.62 391.447 1043.12 625.178 1056.71" stroke-width="2" stroke="#FF0044"/>
+            </svg>
+            <div class="about-inner">
+              <div class="about-copy">
+                <div class="about-text">
+                  <h2 class="about-title"><span>Quem é a </span><span class="red">Kath?</span></h2>
+                  <div class="about-body">
+                    <p>Oi, eu sou a Kath. Comecei com uma câmera na mão, fotografando gente, e foi ali que percebi que a imagem que a gente mostra costuma ser a que o outro lembra, né? Passei anos observando por que pessoas competentes parecem menores do que são na internet, e por que outras, com metade do repertório, parecem maiores.</p>
+                    <p>O que separa uma da outra é a intenção: o que a pessoa mostra, o que ela cala, o que repete e o que deixa ficar. Hoje eu publico todo dia, escrevo e dou palestra. Levo esse olhar pra marcas e eventos, pra transformar presença em percepção, e percepção em oportunidade. Minha fé vai junto em tudo isso.</p>
+                  </div>
+                </div>
+                <div class="about-ctas">
+                  <a class="btn btn-lg btn-primary btn-glow" href="trabalhe-comigo.html">Trabalhe comigo</a>                </div>
+              </div>
+
+              <div class="stack" aria-hidden="true">
+                <div class="stack-rot">
+                  <div class="stack-grid">
+                    <div class="card-box cb-1"><div class="card c-1"><img src="assets/img/img-1862.webp" alt="" loading="lazy" decoding="async"></div></div>
+                    <div class="card-box cb-2"><div class="card c-2"><img src="assets/img/pls-04305.webp" alt="" loading="lazy" decoding="async"></div></div>
+                    <div class="card-box cb-3"><div class="card c-3"><img src="assets/img/dsc-06605.webp" alt="" loading="lazy" decoding="async"></div></div>
+                    <div class="card-box cb-4"><div class="card c-4"><img src="assets/img/img-1824.webp" alt="" loading="lazy" decoding="async"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ESCOLHA POR ONDE COMEÇAR ============ -->
+  <section class="choose" aria-labelledby="choose-title">
+    <div class="choose-fx" aria-hidden="true">
+      <div class="stage">
+        <img class="choose-glow choose-glow-l" src="assets/svg/glow-red.svg" width="1095.54" height="1736.83" alt="">
+        <img class="choose-glow choose-glow-r" src="assets/svg/glow-red.svg" width="1095.54" height="1736.83" alt="">
+      </div>
+    </div>
+    <div class="stage">
+
+      <h2 class="choose-title" id="choose-title">
+        <span class="l1">escolha por</span>
+        <span class="l2">onde começar</span>
+      </h2>
+
+      <div class="choose-grid">
+        <!-- Palestras -->
+        <article class="pcard pcard-palestras" id="palestras">
+          <picture>
+            <source media="(max-width: 1023.98px)" srcset="assets/img/card-palestras-m.webp">
+            <img class="pcard-bg" src="assets/img/card-palestras.webp" alt="" loading="lazy" decoding="async">
+          </picture>
+          <h3 class="pcard-title palestras-title">Palestras, campanhas e consultoria</h3>
+          <p class="pcard-desc palestras-lead">Se a sua marca ou o seu evento quer uma conversa de verdade com a plateia, me chama.</p>
+          <div class="palestras-bottom">
+            <p class="palestras-list">
+              <span><b>Palestras e eventos:</b> Comportamento e percepção, com a plateia no jogo.</span>
+              <span><b>Campanhas e publicidade:</b> Conteúdo pra sua marca, feito do meu jeito.</span>
+              <span><b>Consultoria:</b> Um olhar de fora pra sua imagem e sua comunicação.</span>
+            </p>
+            <div class="pcard-btns palestras-btns">
+              <a class="btn btn-xs btn-primary btn-glow" href="trabalhe-comigo.html?tipo=palestra"><span class="d-only">CONVIDAR A KATH</span><span class="m-only">Convidar a Kath</span></a>
+              <a class="press" href="mailto:kathzaparolly@gmail.com">Imprensa e podcasts: kathzaparolly@gmail.com</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Livro -->
+        <article class="pcard pcard-livro" id="livro">
+          <img class="pcard-bg" src="assets/img/card-livro.webp" alt="Livro Influência Intencional" loading="lazy" decoding="async">
+          <h3 class="pcard-title livro-title"><span>INFLUÊNCIA</span><span>INTENCIONAL</span></h3>
+          <p class="pcard-desc livro-desc"><span class="d-only">Como a internet está te vendo hoje? Esse guia te ajuda a responder isso e a decidir o que você quer que as pessoas lembrem de você</span><span class="m-only">Como a internet te vê hoje? Este guia ajuda você a descobrir e a definir como quer ser lembrado.</span></p>
+          <div class="pcard-btns livro-btns">
+            <a class="btn btn-xs btn-primary btn-glow" href="https://pay.kirvano.com/9aa497c9-ecc4-4eae-8cae-2fd1627d4a17"><span class="d-only">QUERO O MEU!</span><span class="m-only">Quero o meu!</span></a>
+            <a class="btn btn-xs btn-ghost btn-glow livro-more" href="influencia-intencional.html">SAIBA MAIS</a>
+          </div>
+        </article>
+
+        <div class="choose-side">
+          <!-- Camisetas (vídeo; texto só no hover) -->
+          <article class="pcard pcard-camisetas" id="camisetas" tabindex="0">
+            <video class="pcard-video" muted loop playsinline preload="none" poster="assets/img/camisetas-poster.webp" aria-hidden="true">
+              <source src="assets/video/camisetas.webm" type="video/webm">
+              <source src="assets/video/camisetas.mp4" type="video/mp4">
+            </video>
+            <div class="camis-veil" aria-hidden="true"></div>
+            <div class="pcard-content camis-content">
+              <div class="pcard-head">
+                <p class="camis-tag">Camisetas da corte</p>
+                <h3 class="pcard-title camis-title"><span>O POVO</span><span>NÃO É BOBO</span></h3>
+                <p class="pcard-desc">Vista a voz da Corte. Conheça as camisetas do Bobo da Corte e escolha a sua.</p>
+              </div>
+              <a class="btn btn-xs btn-primary btn-glow" href="https://loja.kathzaparoli.com.br/"><span class="d-only">VER AS CAMISETAS</span><span class="m-only">Ver catálogo completo!</span></a>
+            </div>
+          </article>
+
+          <ul class="socials" aria-label="Redes sociais">
+            <li><a class="social is-active" href="https://instagram.com/kathzaparoli" target="_blank" rel="noopener" aria-label="Instagram"><img class="ic-ig" loading="lazy" src="assets/icons/icon-instagram.svg" width="59" height="59" alt=""></a></li>
+            <li><a class="social" href="https://www.tiktok.com/@kathzaparoli" target="_blank" rel="noopener" aria-label="TikTok"><img class="ic-tt" loading="lazy" src="assets/icons/icon-tiktok.svg" width="57.341" height="57.341" alt=""></a></li>
+            <li><a class="social" href="https://www.youtube.com/@kathzaparoli" target="_blank" rel="noopener" aria-label="YouTube"><img class="ic-yt" loading="lazy" src="assets/icons/icon-youtube.svg" width="65.931" height="43.974" alt=""></a></li>
+          </ul>
+        </div>
+
+        <!-- KAZE -->
+        <article class="pcard pcard-kaze" id="kaze">
+          <picture>
+            <source media="(max-width: 1023.98px)" srcset="assets/img/card-kaze-m.webp">
+            <img class="pcard-bg" src="assets/img/card-kaze.webp" alt="" loading="lazy" decoding="async">
+          </picture>
+          <div class="pcard-content kaze-content">
+            <div class="pcard-head">
+              <h3 class="pcard-title"><span>KAZE</span><span>AGÊNCIA</span></h3>
+              <p class="pcard-desc">A agência que eu fundei pra trabalhar do outro lado da tela, com criadores e marcas.</p>
+            </div>
+            <a class="btn btn-xs btn-primary btn-glow" href="https://kazeagencia.com.br/"><span class="d-only">CONHECER A AGÊNCIA</span><span class="m-only">Conhecer a Agência</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KATHARINA / ZAPAROLI ============ -->
+  <section class="zaparoli" aria-label="Katharina Zaparoli">
+    <p class="zap-word zap-top">Katharina</p>
+    <p class="zap-word zap-bottom">Zaparoli</p>
+    <div class="zap-strip"><img src="assets/img/zaparoli-strip.webp" alt="Katharina apresentando em um escritório envidraçado" loading="lazy" decoding="async"></div>
+  </section>
+
+  <!-- ============ SE VOCÊ QUER SER LEMBRADO ============ -->
+  <section class="provoke" id="contato" aria-labelledby="provoke-title">
+    <div class="provoke-band" aria-hidden="true"></div>
+    <div class="stage">
+      <div class="provoke-brush" aria-hidden="true"><img src="assets/svg/brush-red.svg" width="661.288" height="1009.24" alt="" loading="lazy" decoding="async"></div>
+      <div class="provoke-photo"><img src="assets/img/provoke-photo.webp" srcset="assets/img/provoke-photo-1000.webp 1000w, assets/img/provoke-photo.webp 1900w" sizes="912px" width="1900" height="2850" alt="Katharina sorrindo, de óculos escuros e jaqueta de couro, segurando um microfone" loading="lazy" decoding="async"></div>
+      <!-- celular: a foto aparece inteira em cima e, embaixo, só dentro da pincelada (máscara do Figma) -->
+      <div class="pp-m" role="img" aria-label="Katharina sorrindo, de óculos escuros e jaqueta de couro, segurando um microfone">
+        <div class="pp-m-mask"><div class="pp-m-in"><img src="assets/img/provoke-photo-1000.webp" width="1000" height="1500" alt="" loading="lazy" decoding="async"></div></div>
+        <div class="pp-m-top"><img src="assets/img/provoke-photo-1000.webp" width="1000" height="1500" alt="" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="provoke-copy">
+        <div class="provoke-text">
+          <h2 class="provoke-title" id="provoke-title">
+            <span class="l1">Se você quer ser lembrado, <span class="red">comece decidindo o que</span></span>
+            <span class="l2 red">quer provocar</span>
+          </h2>
+          <p class="provoke-lead">Comece pelo livro ou fale comigo sobre um projeto: palestra, campanha, consultoria ou entrevista.</p>
+        </div>
+        <div class="provoke-ctas">
+          <a class="btn btn-lg btn-primary btn-glow" href="trabalhe-comigo.html">TRABALHE COMIGO</a>
+          <a class="btn btn-lg btn-outline" href="influencia-intencional.html">QUERO O EBOOK</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="stage">
+      <a class="foot-brand" href="#topo">Katharina Zaparoli</a>
+      <p class="foot-tagline">Influência, comportamento, comunicação e tudo aquilo que existe por trás do que move pessoas.</p>
+
+      <nav class="foot-cols" aria-label="Rodapé">
+        <div class="foot-col">
+          <p class="foot-head">Links Rápidos</p>
+          <a class="u" href="#topo">Início</a>
+          <a href="influencia-intencional.html">Ebook</a>
+          <a class="u" href="trabalhe-comigo.html">Trabalhe comigo</a>
+          <a href="#camisetas">Camisetas do Bobo</a>
+        </div>
+        <div class="foot-col foot-col-n">
+          <p class="foot-head">Redes</p>
+          <a class="u" href="https://instagram.com/kathzaparoli" target="_blank" rel="noopener">Instagram</a>
+          <a class="u" href="https://www.tiktok.com/@kathzaparoli" target="_blank" rel="noopener">TikTok</a>
+          <a class="u" href="https://www.youtube.com/@kathzaparoli" target="_blank" rel="noopener">YouTube</a>
+        </div>
+        <div class="foot-col foot-col-n">
+          <p class="foot-head">Outros</p>
+          <a class="u foot-terms" href="https://kathzaparoli.com.br/termos-de-uso" target="_blank" rel="noopener">Termos de Uso</a>
+          <a class="u" href="https://kathzaparoli.com.br/politica-de-privacidade" target="_blank" rel="noopener">Política de Privacidade</a>
+        </div>
+      </nav>
+
+      <div class="foot-row">
+        <a class="u" href="mailto:kathzaparolly@gmail.com">kathzaparolly@gmail.com</a>
+        <p>Desenvolvido por: @euangeloo.design</p>
+      </div>
+      <p class="foot-copy">© 2026 Katharina Zaparoli. Todos os direitos reservados.</p>
+      <p class="foot-word" aria-hidden="true">Katharina</p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- progresso da rolagem (no lugar da barra de rolagem, igual à página do ebook) -->
+<div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+<!-- cortina da transição entre páginas -->
+<div class="pt" aria-hidden="true"><span class="pt-brand">Katharina Zaparoli</span></div>
+
+<script src="js/menu.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/vendor/SplitText.min.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
