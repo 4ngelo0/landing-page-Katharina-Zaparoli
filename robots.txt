@@ -1,0 +1,23 @@
+# kathzaparoli.com.br — todo o site pode ser lido por buscadores e por assistentes de IA
+User-agent: *
+Allow: /
+
+# buscadores e assistentes de IA (liberados de forma explícita)
+User-agent: Googlebot
+User-agent: Google-Extended
+User-agent: Bingbot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: DuckAssistBot
+Allow: /
+
+Sitemap: https://kathzaparoli.com.br/sitemap.xml

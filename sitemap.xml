@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://kathzaparoli.com.br/</loc>
+    <lastmod>2026-11-26</lastmod>
+    <image:image><image:loc>https://kathzaparoli.com.br/assets/og/og-home.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://kathzaparoli.com.br/influencia-intencional</loc>
+    <lastmod>2026-11-26</lastmod>
+    <image:image><image:loc>https://kathzaparoli.com.br/assets/ebook/ii-book.webp</image:loc></image:image>
+    <image:image><image:loc>https://kathzaparoli.com.br/assets/og/og-ebook.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://kathzaparoli.com.br/trabalhe-comigo</loc>
+    <lastmod>2026-11-26</lastmod>
+    <image:image><image:loc>https://kathzaparoli.com.br/assets/og/og-trabalhe-comigo.jpg</image:loc></image:image>
+  </url>
+</urlset>
