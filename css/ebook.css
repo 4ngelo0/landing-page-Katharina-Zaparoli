@@ -277,6 +277,8 @@ html.ii-intro, html.ii-intro body { overflow: hidden; }
   transition: border-color .3s, color .3s;
 }
 .ii-link-light:hover { color: var(--red); border-color: var(--red); }
+/* faixa do livro e rótulo curto do 2º CTA: só no celular */
+.ii-hero-strip, .ii-lbl-m { display: none; }
 
 .ii-hero-foot {
   margin-top: calc(56px * var(--z));
@@ -1209,6 +1211,214 @@ html.ii-intro, html.ii-intro body { overflow: hidden; }
   .ii-faq > .stage { padding-left: 40px; padding-right: 40px; }
   .ii-acc { max-width: 700px; margin-left: auto; margin-right: auto; }
   .ii-buybar { left: 50%; right: auto; width: min(640px, 100% - 48px); translate: -50% 0; }
+}
+
+/* =========================================================
+   CELULAR (< 768) — hero do Figma (frame de 390 × 809):
+   o vídeo vertical toca em tela cheia; quando acaba, some num fade e a faixa com o livro
+   sai do lugar do livro no último frame e sobe até o topo (ebook.js), depois entra o texto.
+   --u = 1px do Figma, reduzido se a tela for mais baixa que o frame (tudo cabe acima das faixas).
+   ========================================================= */
+@media (max-width: 767.98px) {
+  .ii-page { --mq: 51.39px; }
+  .ii-hero {
+    --u: min(calc(100vw / 390), calc(100vh / 809));
+    --u: min(calc(100vw / 390), calc(100svh / 809));
+    min-height: 0;
+  }
+
+  /* vídeo vertical: sem recorte lateral; sem imagem final nem sombra (fundo preto do Figma) */
+  .ii-hero-video { object-position: center; }
+  .ii-hero-still, .ii-hero-shade { display: none; }
+  .ii-done .ii-hero-video { opacity: 0; transition: opacity .7s ease; }
+
+  /* nav: pílula transparente de 344 × 61, nome + hambúrguer */
+  .ii-nav-stage { padding: 0; }
+  .ii-nav {
+    width: min(344px, 100vw - 24px);   /* 344 do Figma; em telas de 320–360 encolhe junto */
+    min-height: 61px;
+    margin: 24px auto 0;
+    padding: 0 18px;
+    column-gap: 24px;
+    row-gap: 0;
+    justify-content: space-between;
+    background: rgba(13, 13, 13, 0);
+  }
+  .ii-nav .nav-brand { font-size: 36.629px; }
+  .ii-nav .nav-toggle { width: 37.526px; height: 37.526px; margin-left: 0; padding: 0 6.3px; gap: 7.06px; }
+  .ii-nav .nav-toggle span { height: 2.35px; }
+  .ii-nav.is-open .nav-toggle span:nth-child(1) { transform: translateY(9.41px) rotate(45deg); }
+  .ii-nav.is-open .nav-toggle span:nth-child(3) { transform: translateY(-9.41px) rotate(-45deg); }
+  .ii-nav.is-open { padding-bottom: 8px; }
+
+  /* conteúdo: faixa (topo 95.82) → título (428) → texto (594) → CTAs (685); 80 de respiro até o fim do hero */
+  .ii-hero-copy {
+    width: 100%;
+    padding: calc(95.82 * var(--u)) 0 calc(80 * var(--u));
+    align-items: center;
+    gap: 0;
+    text-align: center;
+  }
+  /* a parte visível da imagem vai de 21,4% a 78,5% da largura (o resto é transparente):
+     a faixa tem no mínimo 100vw / 0,56 de largura, pra sempre pegar de uma ponta a outra da tela.
+     As margens negativas mantêm no layout a altura do Figma (317,44), então o texto não desce. */
+  .ii-hero-strip {
+    --sw: max(calc(740.124 * var(--u)), calc(100vw / 0.56));
+    display: block;
+    flex: none;
+    width: var(--sw);
+    margin-block: calc((317.442 * var(--u) - var(--sw) * 635 / 1481) / 2);
+    transform-origin: 50.07% 48.5%;   /* centro do livro na faixa (ebook.js anima a partir dele) */
+  }
+  .ii-hero-strip img { display: block; width: 100%; height: auto; }
+  .ii-hero-title {
+    width: calc(330.185 * var(--u));
+    margin-top: calc(14.55 * var(--u));
+    font-size: calc(43.026 * var(--u));
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+  }
+  .ii-hero-text {
+    width: calc(277.197 * var(--u));
+    margin-top: calc(26 * var(--u));
+    font-size: calc(13 * var(--u));
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--white);
+  }
+  .ii-hero-ctas { margin-top: calc(28 * var(--u)); gap: calc(13.873 * var(--u)); justify-content: center; flex-wrap: nowrap; }
+  .ii-hero-ctas .btn,
+  .ii-hero-ctas .ii-link-light {
+    padding: calc(16.321 * var(--u)) calc(32.643 * var(--u));
+    border-radius: calc(4.08 * var(--u));
+    font-family: var(--f-semi);
+    font-size: calc(11.425 * var(--u));
+    line-height: 1.022;
+    letter-spacing: -0.03em;
+  }
+  .ii-hero-ctas .ii-link-light {
+    display: inline-flex;
+    background: var(--white);
+    color: var(--black);
+    border: 0.816px solid var(--black);
+    transition: background-color .25s, color .25s;
+  }
+  .ii-hero-ctas .ii-link-light:hover { background: var(--black); color: var(--white); border-color: var(--white); }
+  .ii-lbl-d { display: none; }
+  .ii-lbl-m { display: inline; }
+
+  /* faixas cruzadas no tamanho do Figma */
+  .ii-marquee-front { rotate: -2deg; padding-block: 7.953px; }
+  .ii-marquee-back { rotate: 1.6deg; padding-block: 5.506px; }
+  .ii-marquee-track { font-size: 18.354px; }
+  .ii-marquee-back .ii-marquee-track { font-size: 7.341px; }
+}
+
+/* CELULAR (< 768) — resto da página no mesmo esquema do index:
+   tudo centralizado, margem lateral de 8vw (24–40px; 31px num celular de 390)
+   e títulos com tamanho fluido (clamp), pra caberem bem de 320 a 767px */
+@media (max-width: 767.98px) {
+  .ii-page { --g: clamp(24px, 8vw, 40px); }
+  .ii-sec .w { width: calc(100% - 2 * var(--g)); }
+  .ii-change > .stage, .ii-inside > .stage, .ii-faq > .stage { padding-left: var(--g); padding-right: var(--g); }
+
+  /* tipos */
+  .ii-d, .ii-h, .ii-author-title { font-size: clamp(32px, 10.3vw, 44px); letter-spacing: -0.03em; }
+  .ii-final-title { font-size: clamp(28px, 8.7vw, 38px); }
+  .ii-faq-title { font-size: clamp(32px, 10.3vw, 44px); }
+  .ii-ask { font-size: clamp(28px, 9.2vw, 40px); }
+  .ii-band-ask { font-size: clamp(42px, 13.3vw, 58px); }
+  .ii-nope strong { font-size: clamp(30px, 9.7vw, 42px); }
+  .ii-for-close { font-size: clamp(22px, 6.7vw, 28px); }
+  .ii-inside-title > span { font-size: clamp(36px, 11.3vw, 48px); }
+  .ii-inside-title > .red { font-size: clamp(56px, 18vw, 78px); }
+  .ii-card-word { font-size: clamp(76px, 24.6vw, 104px); }
+
+  /* centralizado */
+  .ii-sec, .ii-faq { text-align: center; }
+  .ii-acc { text-align: left; }   /* perguntas e respostas do FAQ continuam alinhadas à esquerda */
+  .ii-script { transform-origin: center; }
+  .ii-band-top, .ii-band-foot { align-items: center; }
+  .ii-band-t2 { text-align: center; }
+
+  /* "Não adianta": número em cima, título e texto embaixo, tudo no eixo */
+  .ii-nope li { grid-template-columns: 1fr; justify-items: center; row-gap: 10px; }
+  .ii-nope .ii-row-n { grid-row: auto; padding-top: 0; }
+  .ii-nope li > span:last-child { max-width: 300px; }
+
+  /* "Pra quem é": coroa em cima do título; a lista continua em linhas (número · texto · check) */
+  .ii-for-head { flex-direction: column-reverse; align-items: center; gap: 14px; }
+  .ii-for-list li { text-align: left; }
+  .ii-for-foot { flex-direction: column; align-items: center; gap: 28px; }
+
+  /* antes / depois: as listas com marcador continuam alinhadas à esquerda dentro do card */
+  .ii-card { padding-left: 24px; padding-right: 24px; }
+
+  /* o que tem dentro */
+  .ii-book { width: calc(100% + 2 * var(--g)) !important; margin: 0 calc(-1 * var(--g)); }
+  .ii-inside-copy { align-items: center; }
+  .ii-inside-head { align-items: center; text-align: center; }
+  .ii-inside-title { text-align: center; }
+  .ii-tags { justify-content: center; }
+
+  /* autora: assinatura entre dois traços, foto no centro */
+  .ii-author-sign { justify-content: center; gap: 10px; font-size: clamp(16px, 4.6vw, 20px); white-space: nowrap; }
+  .ii-author-sign::before, .ii-author-sign::after { content: ""; flex: none; width: 20px; height: 2px; background: var(--red); }
+  .ii-author-media { width: 78%; margin: 0 auto; justify-self: center; }
+  .ii-badge { left: -14%; width: clamp(96px, 29vw, 130px); }
+
+  /* CTA final */
+  .ii-final-row { flex-direction: column; justify-content: center; }
+  .ii-final-meta { text-align: center; line-height: 1.6; }
+
+  /* footer centralizado, como o do index */
+  .ii-page .footer > .stage { padding-left: var(--g); padding-right: var(--g); align-items: center; text-align: center; }
+  .ii-page .foot-cols { justify-content: center; }
+  .ii-page .foot-col { align-items: center; }
+  .ii-page .foot-row { align-items: center; align-self: stretch; }
+
+  /* barra de compra: o botão nunca corta o texto (em 320px o nome encolhe e quebra) */
+  .ii-buybar-name { min-width: 0; font-size: clamp(12px, 3.6vw, 14px); }
+  .ii-buybar-btn { flex: none; padding: 14px clamp(10px, 3.6vw, 16px); font-size: clamp(11px, 3.4vw, 13px); }
+
+  /* sem palavra sozinha na última linha: títulos equilibrados, textos com quebra "bonita" */
+  .ii-page :is(h1, h2, .ii-for-close, .ii-ask-l, .ii-inside-title) { text-wrap: balance; }
+  .ii-page :is(p, li, .ii-q-t, .ii-author-text p) { text-wrap: pretty; }
+
+  /* texto do hero maior, na mesma margem lateral do resto da página */
+  .ii-hero-text { width: calc(100vw - 2 * var(--g)); font-size: calc(16 * var(--u)); line-height: 1.25; }
+
+  /* manuscritos: maiores, no tamanho visual da Origin ao lado */
+  .ii-script, .ii-for-close .ii-script, .ii-script-xl { font-size: 1.75em; }
+  .ii-band-ask { font-size: clamp(42px, 13.3vw, 58px); }   /* "e se perguntam:" tem tamanho próprio */
+  /* os que ficam sozinhos na linha (fim do título) vão retos, centralizados */
+  .ii-problem-title .ii-script, .ii-pitch-title .ii-script, .ii-for-close .ii-script, .ii-final-title .ii-script {
+    display: block;
+    width: fit-content;
+    margin: -0.12em auto 0;   /* colado na última linha do título */
+    line-height: 0.8;
+    transform: none;
+  }
+  .ii-band-ask { transform: none; }
+  .ii-band-top { gap: 4px; }
+
+  /* CTA final numa linha só (texto curto no celular) */
+  .ii-final-cta { white-space: nowrap; padding: 22px 20px; font-size: clamp(13px, 4vw, 16px); }
+
+  /* sem nav fixa: ela fica no hero e sobe junto com ele */
+  .ii-nav-fixed .ii-nav-stage, .ii-nav-fixed.ii-nav-out .ii-nav-stage, .ii-nav-fixed.ii-nav-away .ii-nav-stage {
+    position: absolute;
+    animation: none;
+    visibility: visible;
+  }
+  .ii-nav-fixed .ii-nav:not(.is-open) { background: rgba(13, 13, 13, 0); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+
+  /* "O que tem dentro": livro bem maior (a sombra pode cortar nas laterais) */
+  .ii-inside .ii-book { width: 145vw !important; margin-inline: calc((100% - 145vw) / 2); }
+}
+/* texto do hero com no mínimo 14px (em telas muito baixas, < 640px, ele segue a escala pra não encostar nas faixas) */
+@media (max-width: 767.98px) and (min-height: 640px) {
+  .ii-hero-text { font-size: max(14px, 16 * var(--u)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

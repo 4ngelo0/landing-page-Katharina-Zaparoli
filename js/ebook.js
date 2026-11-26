@@ -154,11 +154,33 @@
     var title = SplitText.create('.ii-hero-title', { type: 'lines' });
     var text = SplitText.create('.ii-hero-text', { type: 'lines', mask: 'lines' });
     gsap.set('.ii-hero-copy', { autoAlpha: 1 });
-    gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.15 })
-      .fromTo('.ii-nav', { autoAlpha: 0, y: -24 }, { autoAlpha: 1, y: 0, duration: 1.2 }, 0)
-      .from(title.lines, { y: 60, autoAlpha: 0, duration: 1.4, stagger: 0.08 }, 0.1)
-      .from(text.lines, { yPercent: 110, duration: 1.1, stagger: 0.05 }, 0.5)
-      .from('.ii-hero-ctas > *', { y: 24, autoAlpha: 0, duration: 1, stagger: 0.08, clearProps: 'transform' }, 0.7);
+    var tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.15 });
+    var t0 = 0;
+    // celular: a faixa do livro aparece em cima do livro do último frame do vídeo (que some num fade)
+    // e sobe até o lugar dela; o texto entra depois
+    var strip = $('.ii-hero-strip');
+    if (strip && strip.offsetWidth) {
+      tl.fromTo(strip, stripFrom(strip), { autoAlpha: 1, duration: 0.55, ease: 'power1.out', immediateRender: true }, 0)
+        .to(strip, { x: 0, y: 0, scale: 1, duration: 1.5, ease: 'expo.inOut', clearProps: 'transform' }, 0.35);
+      t0 = 1.15;
+    }
+    tl.fromTo('.ii-nav', { autoAlpha: 0, y: -24 }, { autoAlpha: 1, y: 0, duration: 1.2 }, t0)
+      .from(title.lines, { y: 60, autoAlpha: 0, duration: 1.4, stagger: 0.08 }, t0 + 0.1)
+      .from(text.lines, { yPercent: 110, duration: 1.1, stagger: 0.05 }, t0 + 0.5)
+      .from('.ii-hero-ctas > *', { y: 24, autoAlpha: 0, duration: 1, stagger: 0.08, clearProps: 'transform' }, t0 + 0.7);
+  }
+
+  /* posição inicial da faixa: o livro dela exatamente sobre o livro do último frame do vídeo
+     (vídeo 9:16 cobrindo o hero; medidas tiradas dos próprios arquivos) */
+  function stripFrom(strip) {
+    var h = hero.getBoundingClientRect();
+    var r = strip.getBoundingClientRect();
+    var vw = Math.max(h.width, h.height * 9 / 16), vh = vw * 16 / 9;
+    var vx = h.left + (h.width - vw) / 2 + vw * 0.5174;    // centro do livro no vídeo
+    var vy = h.top + (h.height - vh) / 2 + vh * 0.491;
+    var sx = r.left + r.width * 0.5007;                    // centro do livro na faixa (= transform-origin)
+    var sy = r.top + r.height * 0.485;
+    return { autoAlpha: 0, x: vx - sx, y: vy - sy, scale: (vw * 0.6792) / (r.width * 0.3558) };
   }
 
   /* =========================================================
