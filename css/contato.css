@@ -355,6 +355,13 @@
   .cf-js .cf.is-done .cf-nav, .cf-js .cf.is-done .cf-top { display: none; }
   .cf-done .cf-q { font-size: 32px; }
   .ct-text { text-align: left; }   /* justificado em coluna estreita abria buracos entre as palavras */
+
+  /* "Prefere ir direto?" (e-mail + redes) vai pra baixo do formulário:
+     a intro "se desmonta" e os filhos dela viram itens da grade, então dá pra reordenar */
+  .ct > .stage { row-gap: 0; }
+  .ct-intro { display: contents; }
+  .cf { margin-top: 44px; }
+  .ct-direct { order: 1; margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(0, 0, 0, 0.1); }
   .cf-area { font-size: 17px; }   /* ≥16px: o iPhone não dá zoom ao focar o campo */
 }
 
